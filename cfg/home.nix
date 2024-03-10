@@ -226,37 +226,25 @@
       treesitter-refactor.enable = true;
       treesitter-textobjects.enable = true;
       # UI + Conveniences
-      nvim-cmp = {
+      cmp = {
         enable = true;
         autoEnableSources = true;
-        sources = [
+        settings.sources = [
           {name = "nvim_lsp";}
-	  {name = "path";}
-	  {name = "buffer";}
-	  {name = "emoji";}
-	  {name = "latex_symbols";}
-	];
-	mapping = {
+      	  {name = "path";}
+      	  {name = "buffer";}
+      	  {name = "emoji";}
+      	  {name = "latex_symbols";}
+      	];
+      	settings.mapping = {
           "<C-Space>" = "cmp.mapping.complete()";
           "<C-d>" = "cmp.mapping.scroll_docs(-4)";
           "<C-e>" = "cmp.mapping.close()";
           "<C-f>" = "cmp.mapping.scroll_docs(4)";
           "<CR>" = "cmp.mapping.confirm({ select = true })";
-          "<S-Tab>" = {
-            action = "cmp.mapping.select_prev_item()";
-            modes = [
-              "i"
-              "s"
-            ];
-          };
-          "<Tab>" = {
-            action = "cmp.mapping.select_next_item()";
-            modes = [
-              "i"
-              "s"
-            ];
-          };
-	};
+          "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+          "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+      	};
       };
       todo-comments.enable = true;
       trouble.enable = true;
@@ -295,7 +283,7 @@
           # Nix
           nil_ls = {
             enable = true;
-            installLanguageServer = false;
+            package = null;
           };
           # Rust
           rust-analyzer = {

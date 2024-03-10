@@ -98,6 +98,7 @@
     packages = with pkgs; [
     # firefox
     #  thunderbird
+    wine64
     ];
   };
 

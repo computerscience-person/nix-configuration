@@ -45,7 +45,8 @@
     unp helix dust
     zellij zoxide
     # GUI
-    keepassxc mupdf pavucontrol 
+    keepassxc mupdf pavucontrol
+    blueman
     # LSP's
     nil # Nix language server
     # Fonts

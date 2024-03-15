@@ -1,0 +1,7 @@
+keys:
+  - &panguna age1ffrzkmymqxj4nk4hrlf4ernc8xaz4cn4r3fp2uzxlqkjhtx2c43qcw8zh2
+creation_rules:
+  - path_regex: secrets/secrets.yaml$
+    key_groups:
+    - age:
+      - *panguna

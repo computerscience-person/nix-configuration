@@ -46,7 +46,7 @@
     zellij zoxide
     # GUI
     keepassxc mupdf pavucontrol
-    blueman caprine-bin joplin-desktop
+    caprine-bin joplin-desktop
     sioyek koreader 
     # LSP's
     nil # Nix language server

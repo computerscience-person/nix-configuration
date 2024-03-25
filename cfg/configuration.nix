@@ -58,6 +58,9 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = with pkgs; [
+    epson-escpr epson-escpr2
+  ];
 
   # Enable sound with pipewire.
   security.rtkit.enable = true;
@@ -116,6 +119,8 @@
   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   home-manager
+  pavucontrol
+  xfce.xfce4-volumed-pulse
   ];
 
   # home-manager = {

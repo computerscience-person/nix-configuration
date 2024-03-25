@@ -45,7 +45,7 @@
     unp helix dust
     zellij zoxide
     # GUI
-    keepassxc mupdf pavucontrol
+    keepassxc mupdf 
     caprine-bin joplin-desktop
     sioyek koreader 
     # LSP's

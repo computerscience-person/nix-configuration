@@ -121,6 +121,7 @@
   home-manager
   pavucontrol
   xfce.xfce4-volumed-pulse
+  xfce.thunar-volman
   btrfs-progs
   btrfs-assistant
   ];

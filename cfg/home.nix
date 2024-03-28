@@ -43,7 +43,7 @@
     mpv youtube-dl lazygit
     pandoc typst aria
     unp helix dust
-    zellij zoxide
+    zoxide
     # GUI
     keepassxc mupdf 
     caprine-bin joplin-desktop
@@ -94,8 +94,27 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.zellij = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.wezterm = {
+    enable = true;
+    extraConfig = ''
+      return {
+        font = wezterm.font("Fira Code Nerd Font Mono"),
+        default_prog = { "fish", "-l" }
+      }
+    '';
+  };
+
   programs.fish = {
     enable = true;
+    functions = {
+      mountShtuffs = "sudo mount -t btrfs -o compress=zstd /dev/sdc1 /mnt/Shtuffs";
+      cdShtuffs = "cd /mnt/Shtuffs";
+    };
   };
   
   programs.git = {

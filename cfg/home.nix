@@ -1,7 +1,7 @@
 { config, pkgs, inputs, lib,  ... }:
 
 { 
-  # imports = [ inputs.nixvim.homeManagerModules.nixvim ];
+  imports = [ inputs.nixvim.homeManagerModules.nixvim ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "virus-free";
@@ -163,169 +163,169 @@
     };
   };
 
- #  programs.nixvim = {
- #    enable = true;
- #    # copied from github:GaetanLepage/dotfiles
- #    globals = {
- #      mapleader = " ";
- #      maplocalleader = " ";
- #    };
+  programs.nixvim = {
+    enable = true;
+    # copied from github:GaetanLepage/dotfiles
+    globals = {
+      mapleader = " ";
+      maplocalleader = " ";
+    };
 
- #    keymaps = let
- #      normal =
- #        lib.mapAttrsToList
- #        (key: action: {
- #          mode = "n";
- #          inherit action key;
- #        })
- #        {
- #          "<Space>" = "<NOP>";
+    keymaps = let
+      normal =
+        lib.mapAttrsToList
+        (key: action: {
+          mode = "n";
+          inherit action key;
+        })
+        {
+          "<Space>" = "<NOP>";
 
- #          # Esc to clear search results
- #          "<esc>" = ":noh<CR>";
+          # Esc to clear search results
+          "<esc>" = ":noh<CR>";
 
- #          # fix Y behaviour
- #          Y = "y$";
+          # fix Y behaviour
+          Y = "y$";
 
- #          # back and fourth between the two most recent files
- #          "<C-c>" = ":b#<CR>";
+          # back and fourth between the two most recent files
+          "<C-c>" = ":b#<CR>";
 
- #          # close by Ctrl+x
- #          # "<C-x>" = ":close<CR>";
+          # close by Ctrl+x
+          # "<C-x>" = ":close<CR>";
 
- #          # save by Space+s or Ctrl+s
- #          "<leader>s" = ":w<CR>";
- #          "<C-s>" = ":w<CR>";
+          # save by Space+s or Ctrl+s
+          "<leader>s" = ":w<CR>";
+          "<C-s>" = ":w<CR>";
 
- #          # navigate to left/right window
- #          "<leader>h" = "<C-w>h";
- #          "<leader>l" = "<C-w>l";
+          # navigate to left/right window
+          "<leader>h" = "<C-w>h";
+          "<leader>l" = "<C-w>l";
 
- #          # Press 'H', 'L' to jump to start/end of a line (first/last character)
- #          L = "$";
- #          H = "^";
+          # Press 'H', 'L' to jump to start/end of a line (first/last character)
+          L = "$";
+          H = "^";
 
- #          # resize with arrows
- #          "<C-Up>" = ":resize -2<CR>";
- #          "<C-Down>" = ":resize +2<CR>";
- #          "<C-Left>" = ":vertical resize +2<CR>";
- #          "<C-Right>" = ":vertical resize -2<CR>";
+          # resize with arrows
+          "<C-Up>" = ":resize -2<CR>";
+          "<C-Down>" = ":resize +2<CR>";
+          "<C-Left>" = ":vertical resize +2<CR>";
+          "<C-Right>" = ":vertical resize -2<CR>";
 
- #          # move current line up/down
- #          # M = Alt key
- #          "<M-k>" = ":move-2<CR>";
- #          "<M-j>" = ":move+<CR>";
- #        };
- #      visual =
- #        lib.mapAttrsToList
- #        (key: action: {
- #          mode = "v";
- #          inherit action key;
- #        })
- #        {
- #          # better indenting
- #          ">" = ">gv";
- #          "<" = "<gv";
- #          "<TAB>" = ">gv";
- #          "<S-TAB>" = "<gv";
+          # move current line up/down
+          # M = Alt key
+          "<M-k>" = ":move-2<CR>";
+          "<M-j>" = ":move+<CR>";
+        };
+      visual =
+        lib.mapAttrsToList
+        (key: action: {
+          mode = "v";
+          inherit action key;
+        })
+        {
+          # better indenting
+          ">" = ">gv";
+          "<" = "<gv";
+          "<TAB>" = ">gv";
+          "<S-TAB>" = "<gv";
 
- #          # move selected line / block of text in visual mode
- #          "K" = ":m '<-2<CR>gv=gv";
- #          "J" = ":m '>+1<CR>gv=gv";
- #        };
- #    in
- #      config.nixvim.helpers.keymaps.mkKeymaps
- #      {options.silent = true;}
- #      (normal ++ visual);
- #    # --| from github:GaetanLepage
- #    colorschemes.oxocarbon.enable = true;
- #    plugins = {
- #      # Treesitter
- #      treesitter.enable = true;
- #      treesitter.indent = true;
- #      treesitter-context.enable = true;
- #      treesitter-refactor.enable = true;
- #      treesitter-textobjects.enable = true;
- #      # UI + Conveniences
- #      cmp = {
- #        enable = true;
- #        autoEnableSources = true;
- #        settings.sources = [
- #          {name = "nvim_lsp";}
- #      	  {name = "path";}
- #      	  {name = "buffer";}
- #      	  {name = "emoji";}
- #      	  {name = "latex_symbols";}
- #      	];
- #      	settings.mapping = {
- #          "<C-Space>" = "cmp.mapping.complete()";
- #          "<C-d>" = "cmp.mapping.scroll_docs(-4)";
- #          "<C-e>" = "cmp.mapping.close()";
- #          "<C-f>" = "cmp.mapping.scroll_docs(4)";
- #          "<CR>" = "cmp.mapping.confirm({ select = true })";
- #          "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
- #          "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
- #      	};
- #      };
- #      todo-comments.enable = true;
- #      trouble.enable = true;
- #      oil.enable = true;
- #      gitsigns.enable = true;
- #      flash.enable = true;
- #      lualine.enable = true;
- #      bufferline.enable = true;
- #      which-key.enable = true;
- #      wilder.enable = true;
- #      # Linters
- #      lint = {
- #        enable = true;
- #      };
- #      # Languages
- #      lsp = {
- #        enable = true;
-	# keymaps = {
- #          silent = true;
- #          diagnostic = {
- #            # Navigate in diagnostics
- #            "<leader>k" = "goto_prev";
- #            "<leader>j" = "goto_next";
- #          };
+          # move selected line / block of text in visual mode
+          "K" = ":m '<-2<CR>gv=gv";
+          "J" = ":m '>+1<CR>gv=gv";
+        };
+    in
+      config.nixvim.helpers.keymaps.mkKeymaps
+      {options.silent = true;}
+      (normal ++ visual);
+    # --| from github:GaetanLepage
+    colorschemes.oxocarbon.enable = true;
+    plugins = {
+      # Treesitter
+      treesitter.enable = true;
+      treesitter.indent = true;
+      treesitter-context.enable = true;
+      treesitter-refactor.enable = true;
+      treesitter-textobjects.enable = true;
+      # UI + Conveniences
+      cmp = {
+        enable = true;
+        autoEnableSources = true;
+        settings.sources = [
+          {name = "nvim_lsp";}
+      	  {name = "path";}
+      	  {name = "buffer";}
+      	  {name = "emoji";}
+      	  {name = "latex_symbols";}
+      	];
+      	settings.mapping = {
+          "<C-Space>" = "cmp.mapping.complete()";
+          "<C-d>" = "cmp.mapping.scroll_docs(-4)";
+          "<C-e>" = "cmp.mapping.close()";
+          "<C-f>" = "cmp.mapping.scroll_docs(4)";
+          "<CR>" = "cmp.mapping.confirm({ select = true })";
+          "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+          "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+      	};
+      };
+      todo-comments.enable = true;
+      trouble.enable = true;
+      oil.enable = true;
+      gitsigns.enable = true;
+      flash.enable = true;
+      lualine.enable = true;
+      bufferline.enable = true;
+      which-key.enable = true;
+      wilder.enable = true;
+      # Linters
+      lint = {
+        enable = true;
+      };
+      # Languages
+      lsp = {
+        enable = true;
+	keymaps = {
+          silent = true;
+          diagnostic = {
+            # Navigate in diagnostics
+            "<leader>k" = "goto_prev";
+            "<leader>j" = "goto_next";
+          };
 
- #          lspBuf = {
- #            gd = "definition";
- #            gD = "references";
- #            gt = "type_definition";
- #            gi = "implementation";
- #            K = "hover";
- #            "<F2>" = "rename";
- #          };
- #        };
- #        servers = {
- #          # Nix
- #          nil_ls = {
- #            enable = true;
- #            package = null;
- #          };
- #          # Rust
- #          rust-analyzer = {
- #            enable = true;
-	#     installCargo = false;
-	#     installRustc = false;
-	#   };
- #          # Python
- #          pyright.enable = true;
- #          ruff-lsp.enable = true;
- #          # Typst
- #          typst-lsp.enable = true;
- #          # Markdown
- #          marksman.enable = true;
- #        };
- #      };
- #      # Additional Rust stuff
- #      crates-nvim.enable = true;
- #      rust-tools.enable = true;
- #    };
- #  };
+          lspBuf = {
+            gd = "definition";
+            gD = "references";
+            gt = "type_definition";
+            gi = "implementation";
+            K = "hover";
+            "<F2>" = "rename";
+          };
+        };
+        servers = {
+          # Nix
+          nil_ls = {
+            enable = true;
+            package = null;
+          };
+          # Rust
+          rust-analyzer = {
+            enable = true;
+	    installCargo = false;
+	    installRustc = false;
+	  };
+          # Python
+          pyright.enable = true;
+          ruff-lsp.enable = true;
+          # Typst
+          typst-lsp.enable = true;
+          # Markdown
+          marksman.enable = true;
+        };
+      };
+      # Additional Rust stuff
+      crates-nvim.enable = true;
+      rust-tools.enable = true;
+    };
+  };
   # Fonts
   fonts.fontconfig.enable = true;
   # Desktop Appearance

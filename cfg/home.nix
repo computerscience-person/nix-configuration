@@ -243,6 +243,8 @@
       # Treesitter
       treesitter.enable = true;
       treesitter.indent = true;
+      treesitter.incrementalSelection.enable = true;
+      treesitter.folding = true;
       treesitter-context.enable = true;
       treesitter-refactor.enable = true;
       treesitter-textobjects.enable = true;
@@ -250,13 +252,13 @@
       cmp = {
         enable = true;
         autoEnableSources = true;
-        settings.sources = [
-          {name = "nvim_lsp";}
-      	  {name = "path";}
-      	  {name = "buffer";}
-      	  {name = "emoji";}
-      	  {name = "latex_symbols";}
-      	];
+       #  settings.sources = [
+       #    {name = "nvim_lsp";}
+      	#   {name = "path";}
+      	#   {name = "buffer";}
+      	#   {name = "emoji";}
+      	#   {name = "latex_symbols";}
+      	# ];
       	settings.mapping = {
           "<C-Space>" = "cmp.mapping.complete()";
           "<C-d>" = "cmp.mapping.scroll_docs(-4)";
@@ -267,6 +269,13 @@
           "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
       	};
       };
+      cmp-nvim-lsp.enable = true;
+      cmp-path.enable = true;
+      cmp-buffer.enable = true;
+      cmp-nvim-lsp-document-symbol.enable = true;
+      cmp-nvim-lsp-signature-help.enable = true;
+      cmp-emoji.enable = true;
+      cmp-latex-symbols.enable = true;
       todo-comments.enable = true;
       trouble.enable = true;
       oil.enable = true;
@@ -276,6 +285,7 @@
       bufferline.enable = true;
       which-key.enable = true;
       wilder.enable = true;
+      jupytext.enable = true;
       # Linters
       lint = {
         enable = true;
@@ -283,7 +293,7 @@
       # Languages
       lsp = {
         enable = true;
-	keymaps = {
+      	keymaps = {
           silent = true;
           diagnostic = {
             # Navigate in diagnostics
@@ -309,9 +319,9 @@
           # Rust
           rust-analyzer = {
             enable = true;
-	    installCargo = false;
-	    installRustc = false;
-	  };
+      	    installCargo = false;
+      	    installRustc = false;
+      	  };
           # Python
           pyright.enable = true;
           ruff-lsp.enable = true;

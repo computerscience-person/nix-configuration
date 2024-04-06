@@ -244,7 +244,6 @@
       treesitter.enable = true;
       treesitter.indent = true;
       treesitter.incrementalSelection.enable = true;
-      treesitter.folding = true;
       treesitter-context.enable = true;
       treesitter-refactor.enable = true;
       treesitter-textobjects.enable = true;
@@ -252,13 +251,15 @@
       cmp = {
         enable = true;
         autoEnableSources = true;
-       #  settings.sources = [
-       #    {name = "nvim_lsp";}
-      	#   {name = "path";}
-      	#   {name = "buffer";}
-      	#   {name = "emoji";}
-      	#   {name = "latex_symbols";}
-      	# ];
+        settings.sources = [
+          {name = "nvim_lsp";}
+      	  {name = "path";}
+      	  {name = "buffer";}
+          {name = "nvim_lsp_document_symbol";}
+          {name = "nvim_lsp_signature_help";}
+      	  {name = "emoji";}
+      	  {name = "latex_symbols";}
+      	];
       	settings.mapping = {
           "<C-Space>" = "cmp.mapping.complete()";
           "<C-d>" = "cmp.mapping.scroll_docs(-4)";
@@ -276,6 +277,7 @@
       cmp-nvim-lsp-signature-help.enable = true;
       cmp-emoji.enable = true;
       cmp-latex-symbols.enable = true;
+      indent-blankline.enable = true;
       todo-comments.enable = true;
       trouble.enable = true;
       oil.enable = true;
@@ -333,7 +335,8 @@
       };
       # Additional Rust stuff
       crates-nvim.enable = true;
-      rust-tools.enable = true;
+      rustaceanvim.enable = true;
+      rustaceanvim.rustAnalyzerPackage = null;
     };
   };
   # Fonts

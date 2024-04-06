@@ -320,11 +320,11 @@
             package = null;
           };
           # Rust
-          rust-analyzer = {
-            enable = true;
-      	    installCargo = false;
-      	    installRustc = false;
-      	  };
+         #  rust-analyzer = {
+         #    enable = true;
+      	  #   installCargo = false;
+      	  #   installRustc = false;
+      	  # };
           # Python
           pyright.enable = true;
           ruff-lsp.enable = true;
@@ -337,7 +337,6 @@
       # Additional Rust stuff
       crates-nvim.enable = true;
       rustaceanvim.enable = true;
-      rustaceanvim.rustAnalyzerPackage = null;
     };
   };
   # Fonts

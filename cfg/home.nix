@@ -244,6 +244,7 @@
       treesitter.enable = true;
       treesitter.indent = true;
       treesitter.incrementalSelection.enable = true;
+      treesitter.folding = true;
       treesitter-context.enable = true;
       treesitter-refactor.enable = true;
       treesitter-textobjects.enable = true;

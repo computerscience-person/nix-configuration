@@ -112,7 +112,7 @@
   programs.fish = {
     enable = true;
     functions = {
-      mountShtuffs = "sudo mount -t btrfs -o user,rw,compress=zstd /dev/sdc1 /mnt/Shtuffs";
+      mountShtuffs = "sudo mount -t btrfs -o user,rw,exec,compress=zstd /dev/sdc1 /mnt/Shtuffs";
       cdShtuffs = "cd /mnt/Shtuffs";
     };
   };

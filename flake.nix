@@ -12,6 +12,7 @@
     url = "github:nix-community/nixvim";
     inputs.nixpkgs.follows = "nixpkgs";
   };
+  sops.url = "github:Mic92/sops-nix";
   # TODO: Add any other flake you might need
   # hardware.url = "github:nixos/nixos-hardware";
   # Shameless plug: looking for a way to nixify your themes and make

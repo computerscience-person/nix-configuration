@@ -43,7 +43,9 @@
     mpv youtube-dl lazygit
     pandoc typst aria
     unp helix dust
-    zoxide
+    zoxide 
+    # Secrets
+    minisign sops age
     # GUI
     keepassxc mupdf 
     caprine-bin joplin-desktop
@@ -121,6 +123,7 @@
     enable = true;
     userName = "Oliver Ladores";
     userEmail = "oliver.ladores@wvsu.edu.ph";
+    signing.key = "0x320B1B0E0E392BE6";
   };
 
   programs.zoxide = {
@@ -162,6 +165,10 @@
       font.normal.family = "Fira Code Nerd Font";
     };
   };
+
+  programs.gpg.enable = true;
+  services.gpg-agent.enable = true;
+  services.gpg-agent.pinentryPackage = pkgs.pinentry-gtk2;
 
   programs.nixvim = {
     enable = true;
@@ -349,7 +356,7 @@
       package = pkgs.catppuccin-gtk.override {
         accents = [ "rosewater" "lavender" ];
 	size = "compact";
-	tweaks = [ "rimless" "black" ];
+	tweaks = [ "rimless" ];
 	variant = "mocha";
       };
     };

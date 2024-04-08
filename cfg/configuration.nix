@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       # inputs.home-manager.nixosModules.home-manager
+      inputs.sops.nixosModules.sops
     ];
 
   # Bootloader.
@@ -148,6 +149,8 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  services.dbus.packages = [ pkgs.gcr ];
+
   virtualisation = {
     podman = {
       enable = true;
@@ -155,6 +158,11 @@
       defaultNetwork.settings.dns_enabled = true;
     };
   };
+
+  # Secrets (sops)
+  sops.defaultSopsFile = ./.sops.yaml;
+  sops.defaultSopsFormat = "yaml";
+  sops.age.keyFile = "/home/virus-free/.config/sops/age/keys.txt";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

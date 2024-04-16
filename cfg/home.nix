@@ -49,7 +49,7 @@
     # GUI
     keepassxc mupdf 
     caprine-bin joplin-desktop
-    sioyek koreader 
+    sioyek koreader emote
     # LSP's
     nil # Nix language server
     # Fonts
@@ -114,7 +114,7 @@
   programs.fish = {
     enable = true;
     functions = {
-      mountShtuffs = "sudo mount -t btrfs -o user,rw,exec,compress=zstd /dev/sdc1 /mnt/Shtuffs";
+      mountShtuffs = "sudo mount -t btrfs -o user,rw,exec,compress=zstd /dev/disk/by-uuid/17d12767-23df-47f0-921f-9dbf544a7f82 /mnt/Shtuffs";
       cdShtuffs = "cd /mnt/Shtuffs";
     };
   };
@@ -267,6 +267,7 @@
           {name = "nvim_lsp_signature_help";}
       	  {name = "emoji";}
       	  {name = "latex_symbols";}
+          {name = "luasnip";}
       	];
       	settings.mapping = {
           "<C-Space>" = "cmp.mapping.complete()";
@@ -277,6 +278,11 @@
           "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
           "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
       	};
+        settings.snippet.expand = ''
+          function(args)
+            require('luasnip').lsp_expand(args.body)
+          end
+        '';
       };
       cmp-nvim-lsp.enable = true;
       cmp-path.enable = true;
@@ -285,6 +291,7 @@
       cmp-nvim-lsp-signature-help.enable = true;
       cmp-emoji.enable = true;
       cmp-latex-symbols.enable = true;
+      cmp_luasnip.enable = true;
       indent-blankline.enable = true;
       todo-comments.enable = true;
       trouble.enable = true;

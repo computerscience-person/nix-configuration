@@ -292,7 +292,9 @@
       cmp-emoji.enable = true;
       cmp-latex-symbols.enable = true;
       cmp_luasnip.enable = true;
+      luasnip.enable = true;
       indent-blankline.enable = true;
+      comment.enable = true;
       todo-comments.enable = true;
       trouble.enable = true;
       oil.enable = true;
@@ -314,8 +316,10 @@
           silent = true;
           diagnostic = {
             # Navigate in diagnostics
-            "<leader>k" = "goto_prev";
-            "<leader>j" = "goto_next";
+            "<leader>ck" = "goto_prev";
+            "<leader>cj" = "goto_next";
+            "<leader>cc" = "open_float";
+            "<leader>K" = "show";
           };
 
           lspBuf = {
@@ -352,6 +356,9 @@
       crates-nvim.enable = true;
       rustaceanvim.enable = true;
     };
+    extraConfigVim = ''
+      set shiftwidth=4 softtabstop=4 expandtab
+    '';
   };
   # Fonts
   fonts.fontconfig.enable = true;

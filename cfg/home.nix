@@ -139,19 +139,6 @@
     enable = true;
   };
 
-  programs.chromium = {
-    enable = true;
-    extensions = [
-      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
-      "aghfnjkcakhmadgdomlmlhhaocbkloab" # just black
-    ];
-    # extraOpts = {
-    #   "BrowserSignin" = 1;
-    #   "SyncDisabled" = false;
-    #   "MetricsReportingEnabled" = false;
-    # };
-  };
-
   programs.alacritty = {
     enable = true;
     settings = {

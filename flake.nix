@@ -12,6 +12,7 @@
     url = "github:nix-community/nixvim";
     inputs.nixpkgs.follows = "nixpkgs";
   };
+  nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
   sops.url = "github:Mic92/sops-nix";
   # TODO: Add any other flake you might need
   # hardware.url = "github:nixos/nixos-hardware";
@@ -30,7 +31,10 @@
       nixos = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         # > Our main nixos configuration file <
-        modules = [./cfg/configuration.nix];
+        modules = [
+        inputs.nix-flatpak.nixosModules.nix-flatpak
+        ./cfg/configuration.nix
+        ];
       };
     };
     # Standalone home-manager configuration entrypoint

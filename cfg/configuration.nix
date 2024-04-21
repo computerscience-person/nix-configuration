@@ -59,6 +59,9 @@
     xkbVariant = "";
   };
 
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-xapp ];
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [
@@ -80,6 +83,13 @@
     #media-session.enable = true;
   };
   services.blueman.enable = true;
+  services.flatpak = {
+    enable = true;
+    packages = [
+      "com.vivaldi.Vivaldi"
+      "org.signal.Signal"
+    ];
+  };
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -115,6 +125,14 @@
 
   # Enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes"];
+  nix.settings = {
+    substituters = [
+      "https://nix-community.cachix.org"
+    ];
+    trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

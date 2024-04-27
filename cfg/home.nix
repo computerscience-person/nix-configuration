@@ -153,6 +153,12 @@
     };
   };
 
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
+  };
+
   programs.gpg.enable = true;
   services.gpg-agent.enable = true;
   services.gpg-agent.pinentryPackage = pkgs.pinentry-gtk2;
@@ -279,6 +285,7 @@
       cmp-emoji.enable = true;
       cmp-latex-symbols.enable = true;
       cmp_luasnip.enable = true;
+      autoclose.enable = true;
       luasnip.enable = true;
       indent-blankline.enable = true;
       comment.enable = true;
@@ -337,11 +344,20 @@
           typst-lsp.enable = true;
           # Markdown
           marksman.enable = true;
+          # Deno
+          denols.enable = true;
         };
       };
       # Additional Rust stuff
       crates-nvim.enable = true;
       rustaceanvim.enable = true;
+      # HTML Templating
+      ts-autotag = {
+        enable = true;
+        filetypes = [ "html" "javascript" "typescript" "javascriptreact" "typescriptreact" "svelte"
+                      "vue" "tsx" "jsx" "rescript" "xml" "php" "markdown" "astro" "glimmer" 
+                      "handlebars" "hbs" "vento" ];
+      };
     };
     extraConfigVim = ''
       set shiftwidth=4 softtabstop=4 expandtab

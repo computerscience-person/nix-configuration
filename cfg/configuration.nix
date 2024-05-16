@@ -15,11 +15,17 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.plymouth = {
+    enable = true;
+    catppuccin.enable = true;
+  };
+
+  boot.initrd.kernelModules = [ "amdgpu" ];
+
+  catppuccin.flavour = "mocha";
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -48,9 +54,10 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   # Enable the XFCE Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.xfce.enable = true;
 
   # Configure keymap in X11
@@ -77,6 +84,26 @@
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
+    # TODO: Enable when extraLuaConfig option is available.
+    # wireplumber.extraLuaConfig.bluetooth."51-bluez-config" = ''
+    #   bluez_monitor.properties = {
+    #     ["bluez5.enable-sbc-xq"] = true,
+    #     ["bluez5.enable-msbc"] = true,
+    #     ["bluez5.enable-hw-volume"] = true,
+    #     ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+    #   }
+    # '';
+
+    wireplumber.configPackages = [
+      (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
+        bluez_monitor.properties = {
+          ["bluez5.enable-sbc-xq"] = true,
+          ["bluez5.enable-msbc"] = true,
+          ["bluez5.enable-hw-volume"] = true,
+          ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+        }
+      '')
+    ];
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -94,17 +121,6 @@
   # Enable bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  # environment.etc = {
-  # "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
-  #   bluez_monitor.properties = {
-  #     ["bluez5.enable-sbc-xq"] = true,
-  #     ["bluez5.enable-msbc"] = true,
-  #     ["bluez5.enable-hw-volume"] = true,
-  #     ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-  #   }
-  # '';
-  # };
-
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -129,8 +145,14 @@
     substituters = [
       "https://nix-community.cachix.org"
     ];
+    extra-substituters = [
+      "https://cache.lix.systems"
+      "https://typst-nix.cachix.org"
+    ];
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
+      "typst-nix.cachix.org-1:OzDUMt0nd4wlI1AHucBPnchl4utWXeFTtUFt8XZ3DbA"
     ];
   };
 
@@ -145,6 +167,7 @@
   xfce.thunar-volman
   btrfs-progs
   btrfs-assistant
+  appimage-run
   ];
 
   # home-manager = {

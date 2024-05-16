@@ -1,2 +1,4 @@
 cfg/home-manager
 .sops.yaml
+audiodump.wav
+secrets

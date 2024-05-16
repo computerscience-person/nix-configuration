@@ -36,14 +36,13 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-    neofetch ripgrep eza
+    fastfetch ripgrep eza
     mtr glow broot 
-    neovide bottom alacritty
-    bat vscodium-fhs
-    mpv youtube-dl lazygit
-    pandoc typst aria
-    unp helix dust
-    zoxide 
+    neovide alacritty
+    vscodium-fhs
+    youtube-dl lazygit
+    aria unp dust
+    zoxide hyfetch
     # Secrets
     minisign sops age
     # GUI
@@ -88,8 +87,7 @@
   #  /etc/profiles/per-user/virus-free/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "vim";
-    GTK_THEME = "Catppuccin-Mocha-Compact-Rosewater-Lavender-Dark";
+    EDITOR = "hx";
     SHELL = "fish";
   };
 
@@ -98,7 +96,33 @@
 
   programs.zellij = {
     enable = true;
+    catppuccin.enable = true;
     enableFishIntegration = true;
+  };
+
+  programs.bottom = {
+    enable = true;
+    catppuccin.enable = true;
+  };
+
+  programs.bat = {
+    enable = true;
+    catppuccin.enable = true;
+  };
+
+  programs.helix = {
+    enable = true;
+    catppuccin.enable = true;
+  };
+
+  programs.starship = {
+    enable = true;
+    catppuccin.enable = true;
+  };
+
+  programs.mpv = {
+    enable = true;
+    catppuccin.enable = true;
   };
 
   programs.wezterm = {
@@ -113,6 +137,7 @@
 
   programs.fish = {
     enable = true;
+    catppuccin.enable = true;
     functions = {
       mountShtuffs = "sudo mount -t btrfs -o user,rw,exec,compress=zstd /dev/disk/by-uuid/17d12767-23df-47f0-921f-9dbf544a7f82 /mnt/Shtuffs";
       cdShtuffs = "cd /mnt/Shtuffs";
@@ -124,6 +149,12 @@
     userName = "Oliver Ladores";
     userEmail = "oliver.ladores@wvsu.edu.ph";
     signing.key = "0x320B1B0E0E392BE6";
+    # extraConfig.core.sparseCheckout
+  };
+
+  programs.gitui = {
+    enable = true;
+    catppuccin.enable = true;
   };
 
   programs.zoxide = {
@@ -133,6 +164,7 @@
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
+    catppuccin.enable = true;
   };
 
   programs.firefox = {
@@ -141,6 +173,7 @@
 
   programs.alacritty = {
     enable = true;
+    catppuccin.enable = true;
     settings = {
       shell.program = "fish";
       window = {
@@ -160,6 +193,12 @@
   };
 
   programs.gpg.enable = true;
+  programs.gpg.publicKeys = [
+    { source = "${ pkgs.fetchurl { 
+      url = "https://keys.openpgp.org";
+      hash = "sha256-xWjMw8xYN+o/6Yma3YOQB02EghrbdyFxEQp8TRtEtq0=";
+    }}"; }
+  ];
   services.gpg-agent.enable = true;
   services.gpg-agent.pinentryPackage = pkgs.pinentry-gtk2;
 
@@ -285,7 +324,7 @@
       cmp-emoji.enable = true;
       cmp-latex-symbols.enable = true;
       cmp_luasnip.enable = true;
-      autoclose.enable = true;
+      nvim-autopairs.enable = true;
       luasnip.enable = true;
       indent-blankline.enable = true;
       comment.enable = true;
@@ -341,7 +380,7 @@
           pyright.enable = true;
           ruff-lsp.enable = true;
           # Typst
-          typst-lsp.enable = true;
+          tinymist.enable = true;
           # Markdown
           marksman.enable = true;
           # Deno
@@ -360,23 +399,17 @@
       };
     };
     extraConfigVim = ''
-      set shiftwidth=4 softtabstop=4 expandtab
+      set shiftwidth=2 softtabstop=2 expandtab
     '';
   };
   # Fonts
   fonts.fontconfig.enable = true;
   # Desktop Appearance
+  catppuccin.flavour = "mocha";
+  catppuccin.accent = "lavender";
   gtk = {
     enable = true;
-    theme = {
-      name = "Catppuccin-Mocha-Compact-Rosewater-Lavender-Dark";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "rosewater" "lavender" ];
-	size = "compact";
-	tweaks = [ "rimless" ];
-	variant = "mocha";
-      };
-    };
+    catppuccin.enable = true;
     cursorTheme = {
       name = "Bibata-Modern-Ice";
       package = pkgs.bibata-cursors;
@@ -389,16 +422,16 @@
   };
   qt = {
     enable = true;
-    platformTheme = "gtk";
+    platformTheme.name = "gtk";
     style.name = "adwaita-gtk";
   };
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       # gtk-theme = "Catppuccin-Frappe-Standard-Blue-light";
-      gtk-theme = "Catppuccin-Mocha-Compact-Rosewater-Lavender-Dark";
       cursor-theme = "Bibata-Modern-Ice";
       icon-theme = "Fluent-dark";
     };
   };
+  xdg.enable = true;
 }

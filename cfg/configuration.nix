@@ -116,6 +116,7 @@
       "com.vivaldi.Vivaldi"
       "org.signal.Signal"
       "com.github.vkohaupt.vokoscreenNG"
+      "io.github.flattool.Warehouse"
     ];
   };
 
@@ -125,11 +126,17 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  security.tpm2 = {
+    enable = true;
+    pkcs11.enable = true;
+    tctiEnvironment.enable = true;
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.virus-free = {
     isNormalUser = true;
     description = "Oliver Ladores";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel""tss" ];
     packages = with pkgs; [
     # firefox
     #  thunderbird
@@ -145,10 +152,10 @@
   nix.settings = {
     substituters = [
       "https://nix-community.cachix.org"
-    ];
-    extra-substituters = [
       "https://cache.lix.systems"
       "https://typst-nix.cachix.org"
+    ];
+    extra-substituters = [
     ];
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="

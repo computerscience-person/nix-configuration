@@ -22,7 +22,7 @@
 
   boot.initrd.kernelModules = [ "amdgpu" ];
 
-  catppuccin.flavour = "mocha";
+  catppuccin.flavor = "mocha";
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -115,6 +115,7 @@
     packages = [
       "com.vivaldi.Vivaldi"
       "org.signal.Signal"
+      "com.github.vkohaupt.vokoscreenNG"
     ];
   };
 

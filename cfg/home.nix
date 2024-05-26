@@ -410,7 +410,7 @@
   # Fonts
   fonts.fontconfig.enable = true;
   # Desktop Appearance
-  catppuccin.flavour = "mocha";
+  catppuccin.flavor = "mocha";
   catppuccin.accent = "lavender";
   gtk = {
     enable = true;

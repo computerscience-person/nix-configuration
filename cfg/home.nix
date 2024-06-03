@@ -43,6 +43,7 @@
     youtube-dl lazygit
     aria unp dust
     zoxide hyfetch
+    ptyxis
     # Secrets
     minisign sops age
     # GUI

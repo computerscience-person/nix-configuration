@@ -117,6 +117,7 @@
       "org.signal.Signal"
       "com.github.vkohaupt.vokoscreenNG"
       "io.github.flattool.Warehouse"
+      "com.github.tchx84.Flatseal"
     ];
   };
 
@@ -176,6 +177,7 @@
   btrfs-progs
   btrfs-assistant
   appimage-run
+  distrobox
   ];
 
   # home-manager = {

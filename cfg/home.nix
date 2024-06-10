@@ -136,12 +136,22 @@
     '';
   };
 
+  programs.kitty = {
+    enable = true;
+    catppuccin.enable = true;
+    font.name = "FiraCode Nerd Font";
+    extraConfig = ''
+      shell fish
+    '';
+  };
+
   programs.fish = {
     enable = true;
     catppuccin.enable = true;
     functions = {
       mountShtuffs = "sudo mount -t btrfs -o user,rw,exec,compress=zstd /dev/disk/by-uuid/17d12767-23df-47f0-921f-9dbf544a7f82 /mnt/Shtuffs";
       cdShtuffs = "cd /mnt/Shtuffs";
+      void = "distrobox enter void_env";
     };
   };
   
@@ -150,6 +160,14 @@
     userName = "Oliver Ladores";
     userEmail = "oliver.ladores@wvsu.edu.ph";
     signing.key = "0x320B1B0E0E392BE6";
+    aliases = {
+      st = "status";
+      logl = "log --oneline --graph --show-signature";
+      br = "branch";
+      sw = "switch";
+    };
+    delta.enable = true;
+    delta.catppuccin.enable = true;
     # extraConfig.core.sparseCheckout
   };
 
@@ -279,6 +297,7 @@
       (normal ++ visual);
     # --| from github:GaetanLepage
     colorschemes.oxocarbon.enable = true;
+    clipboard.providers.xsel.enable = true;
     plugins = {
       # Treesitter
       treesitter.enable = true;
@@ -339,6 +358,7 @@
       which-key.enable = true;
       wilder.enable = true;
       jupytext.enable = true;
+      lspsaga.enable = true;
       # Linters
       lint = {
         enable = true;
@@ -391,6 +411,8 @@
           ccls.enable = true;
           # Lua
           lua-ls.enable = true;
+          # OCaml
+          ocamllsp.enable = true;
         };
       };
       # Additional Rust stuff

@@ -52,12 +52,30 @@
     LC_TIME = "fil_PH";
   };
 
+  # Modify udisks defaults
+  services.udisks2.enable = true;
+  services.udisks2.settings = {
+    "udisks2.conf" = {
+      defaults = {
+        encryption = "luks2";
+        btrfs_defaults = "compress=zstd";
+      };
+      udisks2 = {
+        modules = [
+          "*"
+        ];
+        modules_load_preference = "ondemand";
+      };
+  };
+  };
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   # Enable the XFCE Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.lightdm.greeters.slick.enable = true;
   services.xserver.desktopManager.xfce.enable = true;
 
   # Configure keymap in X11
@@ -118,6 +136,7 @@
       "com.github.vkohaupt.vokoscreenNG"
       "io.github.flattool.Warehouse"
       "com.github.tchx84.Flatseal"
+      "org.kde.krita"
     ];
   };
 
@@ -176,6 +195,7 @@
   xfce.thunar-volman
   btrfs-progs
   btrfs-assistant
+  ntfs3g
   appimage-run
   distrobox
   ];

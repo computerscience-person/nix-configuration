@@ -40,12 +40,13 @@
       # FIXME replace with your hostname
       nixos = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
+        system = "x86_64-linux";
         # > Our main nixos configuration file <
         modules = [
-        inputs.nix-flatpak.nixosModules.nix-flatpak
-        lix-module.nixosModules.default
-        inputs.catppuccin.nixosModules.catppuccin
-        ./cfg/configuration.nix
+          inputs.nix-flatpak.nixosModules.nix-flatpak
+          lix-module.nixosModules.default
+          inputs.catppuccin.nixosModules.catppuccin
+          ./cfg/configuration.nix
         ];
       };
     };

@@ -408,7 +408,7 @@
           # Deno
           denols.enable = true;
           # C
-          ccls.enable = true;
+          clangd.enable = true;
           # Lua
           lua-ls.enable = true;
           # OCaml

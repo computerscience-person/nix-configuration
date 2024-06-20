@@ -22,6 +22,10 @@
 
   boot.initrd.kernelModules = [ "amdgpu" ];
 
+  fileSystems = {
+    "/mnt/Shtiffiesh".options = [ "compress=zstd" "user" "rw" "exec" ];
+  };
+
   catppuccin.flavor = "mocha";
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -103,15 +107,15 @@
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
     # TODO: Enable when extraLuaConfig option is available.
-    # wireplumber.extraLuaConfig.bluetooth."51-bluez-config" = ''
+    # wireplumber.extraConfig.bluetooth."51-bluez-config" = {
     #   bluez_monitor.properties = {
-    #     ["bluez5.enable-sbc-xq"] = true,
-    #     ["bluez5.enable-msbc"] = true,
-    #     ["bluez5.enable-hw-volume"] = true,
-    #     ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-    #   }
-    # '';
-
+    #     "bluez5.enable-sbc-xq" = true;
+    #     "bluez5.enable-msbc" = true;
+    #     "bluez5.enable-hw-volume" = true;
+    #     "bluez5.headset-roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+    #   };
+    # };
+    #
     wireplumber.configPackages = [
       (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
         bluez_monitor.properties = {
@@ -122,7 +126,7 @@
         }
       '')
     ];
-
+    #
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
@@ -171,15 +175,13 @@
   nix.settings.experimental-features = [ "nix-command" "flakes"];
   nix.settings = {
     substituters = [
-      "https://nix-community.cachix.org"
       "https://cache.lix.systems"
+      "https://nix-community.cachix.org"
       "https://typst-nix.cachix.org"
     ];
-    extra-substituters = [
-    ];
     trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "typst-nix.cachix.org-1:OzDUMt0nd4wlI1AHucBPnchl4utWXeFTtUFt8XZ3DbA"
     ];
   };
@@ -227,6 +229,17 @@
       enable = true;
       dockerCompat = true;
       defaultNetwork.settings.dns_enabled = true;
+    };
+    containers = {
+      enable = true;
+      # containersConf = ''
+      #   [engine]
+      #   volume_path = "/mnt/Shtiffiesh/var/lib/containers/storage/volumes"
+      # '';
+      storage.settings = {
+        storage.rootless_storage_path = "/mnt/Shtiffiesh/var/lib/containers/storage";
+        storage.driver = "btrfs";
+      };
     };
   };
 

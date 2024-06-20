@@ -14,24 +14,10 @@
   };
   nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
   sops.url = "github:Mic92/sops-nix";
-  lix = {
-    url = "git+https://git@git.lix.systems/lix-project/lix?ref=refs/tags/2.90-beta.1";
-    flake = false;
-  };
-  lix-module = {
-    url = "git+https://git.lix.systems/lix-project/nixos-module";
-    inputs.lix.follows = "lix";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-  # TODO: Add any other flake you might need
-  # hardware.url = "github:nixos/nixos-hardware";
-  # Shameless plug: looking for a way to nixify your themes and make
-  # everything match nicely? Try nix-colors!
-  # nix-colors.url = "github:misterio77/nix-colors";
   catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs = {self, nixpkgs, home-manager, lix-module, ...} @ inputs: let
+  outputs = {self, nixpkgs, home-manager, ...} @ inputs: let
     inherit (self) outputs;
   in {
     # NixOS configuration entrypoint
@@ -42,7 +28,6 @@
         system = "x86_64-linux";
         # > Our main nixos configuration file <
         modules = [
-          lix-module.nixosModules.default
           inputs.nix-flatpak.nixosModules.nix-flatpak
           inputs.catppuccin.nixosModules.catppuccin
           ./cfg/configuration.nix

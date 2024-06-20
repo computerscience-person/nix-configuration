@@ -172,6 +172,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # Enable flakes
+  nix.package = pkgs.lix;
   nix.settings.experimental-features = [ "nix-command" "flakes"];
   nix.settings = {
     substituters = [

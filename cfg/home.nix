@@ -40,7 +40,7 @@
     mtr glow broot 
     neovide alacritty
     vscodium-fhs
-    youtube-dl lazygit
+    yt-dlp lazygit
     aria unp dust
     zoxide hyfetch
     ptyxis

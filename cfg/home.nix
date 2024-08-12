@@ -237,13 +237,13 @@
           inherit action key;
         })
         {
-          "<Space>" = "<NOP>";
+          # "<Space>" = "<NOP>";
 
           # Esc to clear search results
           "<esc>" = ":noh<CR>";
 
           # fix Y behaviour
-          Y = "y$";
+          # Y = "y$";
 
           # back and fourth between the two most recent files
           "<C-c>" = ":b#<CR>";

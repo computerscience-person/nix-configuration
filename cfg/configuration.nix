@@ -89,7 +89,10 @@
   };
 
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-xapp ];
+  xdg.portal.extraPortals = [ 
+    pkgs.xdg-desktop-portal-xapp
+    pkgs.xdg-desktop-portal-gtk
+  ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -141,6 +144,7 @@
       "io.github.flattool.Warehouse"
       "com.github.tchx84.Flatseal"
       "org.kde.krita"
+      "io.gitlab.adhami3310.Impression"
     ];
   };
 

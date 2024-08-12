@@ -97,33 +97,27 @@
 
   programs.zellij = {
     enable = true;
-    catppuccin.enable = true;
     enableFishIntegration = true;
   };
 
   programs.bottom = {
     enable = true;
-    catppuccin.enable = true;
   };
 
   programs.bat = {
     enable = true;
-    catppuccin.enable = true;
   };
 
   programs.helix = {
     enable = true;
-    catppuccin.enable = true;
   };
 
   programs.starship = {
     enable = true;
-    catppuccin.enable = true;
   };
 
   programs.mpv = {
     enable = true;
-    catppuccin.enable = true;
   };
 
   programs.wezterm = {
@@ -138,7 +132,6 @@
 
   programs.kitty = {
     enable = true;
-    catppuccin.enable = true;
     font.name = "FiraCode Nerd Font";
     extraConfig = ''
       shell fish
@@ -147,7 +140,6 @@
 
   programs.fish = {
     enable = true;
-    catppuccin.enable = true;
     functions = {
       mountShtuffs = "sudo mount -t btrfs -o user,rw,exec,compress=zstd /dev/disk/by-uuid/17d12767-23df-47f0-921f-9dbf544a7f82 /mnt/Shtuffs";
       cdShtuffs = "cd /mnt/Shtuffs";
@@ -167,13 +159,11 @@
       sw = "switch";
     };
     delta.enable = true;
-    delta.catppuccin.enable = true;
     # extraConfig.core.sparseCheckout
   };
 
   programs.gitui = {
     enable = true;
-    # catppuccin.enable = true;
   };
 
   programs.zoxide = {
@@ -183,7 +173,6 @@
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
-    catppuccin.enable = true;
   };
 
   programs.firefox = {
@@ -192,7 +181,6 @@
 
   programs.alacritty = {
     enable = true;
-    catppuccin.enable = true;
     settings = {
       shell.program = "fish";
       window = {
@@ -430,11 +418,8 @@
   # Fonts
   fonts.fontconfig.enable = true;
   # Desktop Appearance
-  catppuccin.flavor = "mocha";
-  catppuccin.accent = "lavender";
   gtk = {
     enable = true;
-    catppuccin.enable = true;
     cursorTheme = {
       name = "Bibata-Modern-Ice";
       package = pkgs.bibata-cursors;

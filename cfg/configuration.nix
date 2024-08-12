@@ -17,7 +17,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.plymouth = {
     enable = true;
-    catppuccin.enable = true;
   };
 
   boot.initrd.kernelModules = [ "amdgpu" ];
@@ -26,7 +25,6 @@
     "/mnt/Shtiffiesh".options = [ "compress=zstd" "user" "rw" "exec" ];
   };
 
-  catppuccin.flavor = "mocha";
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

@@ -14,7 +14,6 @@
   };
   nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
   sops.url = "github:Mic92/sops-nix";
-  catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = {self, nixpkgs, home-manager, ...} @ inputs: let
@@ -29,7 +28,6 @@
         # > Our main nixos configuration file <
         modules = [
           inputs.nix-flatpak.nixosModules.nix-flatpak
-          inputs.catppuccin.nixosModules.catppuccin
           ./cfg/configuration.nix
         ];
       };
@@ -43,7 +41,6 @@
       # > Our main home-manager configuration file <
       modules = [
         ./cfg/home.nix
-        inputs.catppuccin.homeManagerModules.catppuccin
         ];
       };
     };

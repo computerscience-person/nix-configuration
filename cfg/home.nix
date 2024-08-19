@@ -347,6 +347,7 @@
       wilder.enable = true;
       jupytext.enable = true;
       lspsaga.enable = true;
+      dressing.enable = true;
       # Linters
       lint = {
         enable = true;
@@ -387,7 +388,7 @@
           # };
           # Python
           pyright.enable = true;
-          ruff-lsp.enable = true;
+          # ruff-lsp.enable = true;
           # Typst
           tinymist.enable = true;
           tinymist.filetypes = [ "typst" "typ" ];
@@ -401,6 +402,8 @@
           lua-ls.enable = true;
           # OCaml
           ocamllsp.enable = true;
+          # Dart
+          dartls.enable = true;
         };
       };
       # Additional Rust stuff
@@ -428,6 +431,11 @@
     iconTheme = {
       name = "Fluent-dark";
       package = pkgs.fluent-icon-theme;
+    };
+
+    theme = {
+      name = "Dracula";
+      package = pkgs.dracula-theme;
     };
   };
   qt = {

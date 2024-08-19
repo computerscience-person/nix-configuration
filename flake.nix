@@ -10,7 +10,6 @@
   # Nixvim
   nixvim = {
     url = "github:nix-community/nixvim";
-    inputs.nixpkgs.follows = "nixpkgs";
   };
   nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
   sops.url = "github:Mic92/sops-nix";

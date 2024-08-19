@@ -143,6 +143,7 @@
       "com.github.tchx84.Flatseal"
       "org.kde.krita"
       "io.gitlab.adhami3310.Impression"
+      "us.zoom.Zoom"
     ];
   };
 

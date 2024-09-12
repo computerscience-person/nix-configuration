@@ -164,7 +164,7 @@
   users.users.virus-free = {
     isNormalUser = true;
     description = "Oliver Ladores";
-    extraGroups = [ "networkmanager" "wheel""tss" ];
+    extraGroups = [ "networkmanager" "wheel" "tss" "adbusers" ];
     packages = with pkgs; [
     # firefox
     #  thunderbird
@@ -194,37 +194,27 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-  home-manager
-  pavucontrol
-  xfce.xfce4-volumed-pulse
-  xfce.thunar-volman
-  btrfs-progs
-  btrfs-assistant
-  ntfs3g
-  appimage-run
-  distrobox
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+    home-manager
+    pavucontrol
+    xfce.xfce4-volumed-pulse
+    xfce.thunar-volman
+    btrfs-progs
+    btrfs-assistant
+    ntfs3g
+    appimage-run
+    distrobox
   ];
 
-  # home-manager = {
-  #   # extraSpecialArgs = { inherit inputs };
-  #   users = {
-  #     virus-free = import ./home-manager/home.nix ;
-  #   };
-  # };
+  fonts.packages = with pkgs; [
+    jetbrains-mono
+    (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "DroidSansMono" "UbuntuMono"];})
+  ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.adb.enable = true;
+  programs.nix-ld.enable = true;
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
   services.dbus.packages = [ pkgs.gcr ];

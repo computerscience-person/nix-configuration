@@ -110,6 +110,12 @@
 
   programs.helix = {
     enable = true;
+    settings.theme = "darcula-solid";
+    settings.editor.cursor-shape = {
+      insert = "bar";
+      normal = "block";
+      select = "underline";
+    };
   };
 
   programs.starship = {
@@ -145,6 +151,12 @@
       cdShtuffs = "cd /mnt/Shtuffs";
       void = "distrobox enter void_env";
     };
+  };
+
+  programs.rofi = {
+    enable = true;
+    terminal = "\${pkgs.kitty}/bin/kitty";
+    theme = "./rofi/theme/config1.rasi";
   };
   
   programs.git = {
@@ -295,43 +307,46 @@
       treesitter-context.enable = true;
       treesitter-refactor.enable = true;
       treesitter-textobjects.enable = true;
+      coq-nvim.enable = true;
+      coq-nvim.installArtifacts = true;
+      coq-nvim.settings.auto_start = "shut-up";
       # UI + Conveniences
-      cmp = {
-        enable = true;
-        autoEnableSources = true;
-        settings.sources = [
-          {name = "nvim_lsp";}
-      	  {name = "path";}
-      	  {name = "buffer";}
-          {name = "nvim_lsp_document_symbol";}
-          {name = "nvim_lsp_signature_help";}
-      	  {name = "emoji";}
-      	  {name = "latex_symbols";}
-          {name = "luasnip";}
-      	];
-      	settings.mapping = {
-          "<C-Space>" = "cmp.mapping.complete()";
-          "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-          "<C-e>" = "cmp.mapping.close()";
-          "<C-f>" = "cmp.mapping.scroll_docs(4)";
-          "<CR>" = "cmp.mapping.confirm({ select = true })";
-          "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-          "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-      	};
-        settings.snippet.expand = ''
-          function(args)
-            require('luasnip').lsp_expand(args.body)
-          end
-        '';
-      };
-      cmp-nvim-lsp.enable = true;
-      cmp-path.enable = true;
-      cmp-buffer.enable = true;
-      cmp-nvim-lsp-document-symbol.enable = true;
-      cmp-nvim-lsp-signature-help.enable = true;
-      cmp-emoji.enable = true;
-      cmp-latex-symbols.enable = true;
-      cmp_luasnip.enable = true;
+      # cmp = {
+      #   enable = true;
+      #   autoEnableSources = true;
+      #   settings.sources = [
+      #     {name = "nvim_lsp";}
+      # 	  {name = "path";}
+      # 	  {name = "buffer";}
+      #     {name = "nvim_lsp_document_symbol";}
+      #     {name = "nvim_lsp_signature_help";}
+      # 	  {name = "emoji";}
+      # 	  {name = "latex_symbols";}
+      #     {name = "luasnip";}
+      # 	];
+      # 	settings.mapping = {
+      #     "<C-Space>" = "cmp.mapping.complete()";
+      #     "<C-d>" = "cmp.mapping.scroll_docs(-4)";
+      #     "<C-e>" = "cmp.mapping.close()";
+      #     "<C-f>" = "cmp.mapping.scroll_docs(4)";
+      #     "<CR>" = "cmp.mapping.confirm({ select = true })";
+      #     "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+      #     "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+      # 	};
+      #   settings.snippet.expand = ''
+      #     function(args)
+      #       require('luasnip').lsp_expand(args.body)
+      #     end
+      #   '';
+      # };
+      # cmp-nvim-lsp.enable = true;
+      # cmp-path.enable = true;
+      # cmp-buffer.enable = true;
+      # cmp-nvim-lsp-document-symbol.enable = true;
+      # cmp-nvim-lsp-signature-help.enable = true;
+      # cmp-emoji.enable = true;
+      # cmp-latex-symbols.enable = true;
+      # cmp_luasnip.enable = true;
       nvim-autopairs.enable = true;
       luasnip.enable = true;
       indent-blankline.enable = true;
@@ -404,6 +419,8 @@
           ocamllsp.enable = true;
           # Dart
           dartls.enable = true;
+          # Tailwind
+          tailwindcss.enable = true;
         };
       };
       # Additional Rust stuff
@@ -413,6 +430,8 @@
       ts-autotag = {
         enable = true;
       };
+      # Typescript stuff
+      typescript-tools.enable = true;
     };
     extraConfigVim = ''
       set shiftwidth=2 softtabstop=2 expandtab

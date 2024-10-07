@@ -44,6 +44,8 @@
     aria unp dust
     zoxide hyfetch
     ptyxis
+    # Dev tooling
+    devenv
     # Secrets
     minisign sops age
     # GUI
@@ -221,6 +223,15 @@
   services.gpg-agent.enable = true;
   services.gpg-agent.pinentryPackage = pkgs.pinentry-gtk2;
 
+  programs.emacs = {
+    enable = true;
+    extraPackages = epkgs: [ epkgs.org epkgs.evil epkgs.dracula-theme ];
+    extraConfig = ''
+      (require 'evil)
+      (evil-mode 1)
+    '';
+  };
+
   programs.nixvim = {
     enable = true;
     # copied from github:GaetanLepage/dotfiles
@@ -258,6 +269,17 @@
           # navigate to left/right window
           "<leader>h" = "<C-w>h";
           "<leader>l" = "<C-w>l";
+
+          # navigate to left/right buffer
+          "<leader>bh" = ":bprev<CR>";
+          "<leader>bl" = ":bnext<CR>";
+          "<leader>bx" = ":bdelete<CR>";
+
+          # lspsaga keymaps
+          "<leader>ca" = ":Lspsaga code_action<CR>";
+          "<leader>cr" = ":Lspsaga rename<CR>";
+          "<leader>co" = ":Lspsaga outline<CR>";
+          "<leader>cK" = ":Lspsaga hover_doc<CR>";
 
           # Press 'H', 'L' to jump to start/end of a line (first/last character)
           L = "$";
@@ -362,7 +384,7 @@
       wilder.enable = true;
       jupytext.enable = true;
       lspsaga.enable = true;
-      dressing.enable = true;
+      lspsaga.lightbulb.debounce = 250;
       # Linters
       lint = {
         enable = true;
@@ -396,14 +418,14 @@
             package = null;
           };
           # Rust
-          #  rust-analyzer = {
-          #    enable = true;
-          #   installCargo = false;
-          #   installRustc = false;
-          # };
+           rust-analyzer = {
+             enable = true;
+            installCargo = false;
+            installRustc = false;
+          };
           # Python
           pyright.enable = true;
-          # ruff-lsp.enable = true;
+          ruff-lsp.enable = true;
           # Typst
           tinymist.enable = true;
           tinymist.filetypes = [ "typst" "typ" ];
@@ -425,7 +447,7 @@
       };
       # Additional Rust stuff
       crates-nvim.enable = true;
-      rustaceanvim.enable = true;
+      # rustaceanvim.enable = true;
       # HTML Templating
       ts-autotag = {
         enable = true;
@@ -435,6 +457,23 @@
     };
     extraConfigVim = ''
       set shiftwidth=2 softtabstop=2 expandtab
+    '';
+    extraConfigLua = ''
+      if vim.g.neovide then
+        vim.g.neovide_scale_factor = 0.8
+        local change_scale_factor = function(delta)
+          vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+        end
+        vim.keymap.set("n", "<C-=>", function()
+          change_scale_factor(1.25)
+        end)
+        vim.keymap.set("n", "<C-->", function()
+          change_scale_factor(1/1.25)
+        end)
+        vim.g.neovide_remember_window_size = true
+        vim.g.neovide_fullscreen = true
+        vim.g.neovide_cursor_vfx_mode = "pixiedust"
+      end
     '';
   };
   # Fonts

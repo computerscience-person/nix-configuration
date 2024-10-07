@@ -19,8 +19,6 @@
     enable = true;
   };
 
-  boot.initrd.kernelModules = [ "amdgpu" ];
-
   fileSystems = {
     "/mnt/Shtiffiesh".options = [ "compress=zstd" "user" "rw" "exec" ];
   };
@@ -98,7 +96,7 @@
     epson-escpr epson-escpr2
   ];
 
-  # Enable sound with pipewire.
+  # Enable sound with ipewire.
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -144,13 +142,21 @@
       "org.kde.krita"
       "io.gitlab.adhami3310.Impression"
       "us.zoom.Zoom"
-      "com.google.AndroidStudio"
     ];
   };
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+
+  # Enable graphics and openGL
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      
+    ];
+  };
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -183,11 +189,13 @@
       "https://cache.lix.systems"
       "https://nix-community.cachix.org"
       "https://typst-nix.cachix.org"
+      "https://devenv.cachix.org"
     ];
     trusted-public-keys = [
       "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "typst-nix.cachix.org-1:OzDUMt0nd4wlI1AHucBPnchl4utWXeFTtUFt8XZ3DbA"
+      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
     ];
   };
 
@@ -197,9 +205,12 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
     home-manager
-    pavucontrol
-    xfce.xfce4-volumed-pulse
     xfce.thunar-volman
+    # xfce.xfce4-pulseaudio-plugin
+    xfce.xfce4-sensors-plugin
+    xfce.xfce4-netload-plugin
+    xfce.xfce4-dict
+    xfce.xfce4-volumed-pulse
     btrfs-progs
     btrfs-assistant
     ntfs3g

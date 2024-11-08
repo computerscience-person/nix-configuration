@@ -255,7 +255,7 @@
   sops.age.keyFile = "/home/virus-free/.config/sops/age/keys.txt";
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 6969 ];
+  # networking.firewall.allowedTCPPorts = [ 6969 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

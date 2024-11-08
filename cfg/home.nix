@@ -50,8 +50,7 @@
     minisign sops age
     # GUI
     keepassxc mupdf 
-    caprine-bin joplin-desktop
-    sioyek koreader emote
+    sioyek emote
     # LSP's
     nil # Nix language server
     # Fonts
@@ -99,7 +98,7 @@
 
   programs.zellij = {
     enable = true;
-    enableFishIntegration = true;
+    # enableFishIntegration = true;
   };
 
   programs.bottom = {
@@ -120,6 +119,13 @@
     };
   };
 
+  programs.zed-editor = {
+    enable = true;
+    extensions = [
+      "the-dark-side"
+    ];
+  };
+
   programs.starship = {
     enable = true;
   };
@@ -130,12 +136,12 @@
 
   programs.wezterm = {
     enable = true;
-    extraConfig = ''
-      return {
-        font = wezterm.font("Fira Code Nerd Font Mono"),
-        default_prog = { "fish", "-l" }
-      }
-    '';
+    # extraConfig = ''
+    #   return {
+    #     font = wezterm.font("Fira Code Nerd Font Mono"),
+    #     default_prog = { "fish", "-l" }
+    #   }
+    # '';
   };
 
   programs.kitty = {
@@ -146,12 +152,22 @@
     '';
   };
 
+  programs.rio = {
+    enable = true;
+    settings = {
+      fonts.family = "FiraCode Nerd Font";
+      shell.program = "fish";
+      shell.args = [];
+      editor.program = "neovide&";
+      editor.args = [];
+    };
+  };
+
   programs.fish = {
     enable = true;
     functions = {
       mountShtuffs = "sudo mount -t btrfs -o user,rw,exec,compress=zstd /dev/disk/by-uuid/17d12767-23df-47f0-921f-9dbf544a7f82 /mnt/Shtuffs";
       cdShtuffs = "cd /mnt/Shtuffs";
-      void = "distrobox enter void_env";
     };
   };
 
@@ -225,11 +241,6 @@
 
   programs.emacs = {
     enable = true;
-    extraPackages = epkgs: [ epkgs.org epkgs.evil epkgs.dracula-theme ];
-    extraConfig = ''
-      (require 'evil)
-      (evil-mode 1)
-    '';
   };
 
   programs.nixvim = {
@@ -322,11 +333,17 @@
     clipboard.providers.xsel.enable = true;
     plugins = {
       # Treesitter
-      treesitter.enable = true;
-      treesitter.indent = true;
-      treesitter.incrementalSelection.enable = true;
-      treesitter.folding = true;
+      treesitter = {
+        enable = true;
+        folding = true;
+        settings = {
+          highlight.enable = true;
+          incremental_selection.enable = true;
+          indent.enable = true;
+        }; 
+      };
       treesitter-context.enable = true;
+      treesitter-context.settings.line_numbers = true;
       treesitter-refactor.enable = true;
       treesitter-textobjects.enable = true;
       coq-nvim.enable = true;
@@ -385,6 +402,19 @@
       jupytext.enable = true;
       lspsaga.enable = true;
       lspsaga.lightbulb.debounce = 250;
+      # Telescope
+      telescope = {
+        enable = true;
+        keymaps = {
+          "<leader>gg" = "live_grep";
+          "<leader>gt" = "treesitter";
+          "<leader>gG" = "grep_string";
+          "<leader>gf" = "find_files";
+        };
+        extensions = {
+          fzf-native.enable = true;
+        };
+      };
       # Linters
       lint = {
         enable = true;
@@ -413,13 +443,13 @@
         };
         servers = {
           # Nix
-          nil_ls = {
+          nil-ls = {
             enable = true;
             package = null;
           };
           # Rust
-           rust-analyzer = {
-             enable = true;
+          rust-analyzer = {
+            enable = true;
             installCargo = false;
             installRustc = false;
           };
@@ -439,10 +469,11 @@
           lua-ls.enable = true;
           # OCaml
           ocamllsp.enable = true;
+          ocamllsp.package = null;
           # Dart
           dartls.enable = true;
           # Tailwind
-          tailwindcss.enable = true;
+          # tailwindcss.enable = true;
         };
       };
       # Additional Rust stuff
@@ -452,11 +483,9 @@
       ts-autotag = {
         enable = true;
       };
-      # Typescript stuff
-      typescript-tools.enable = true;
     };
     extraConfigVim = ''
-      set shiftwidth=2 softtabstop=2 expandtab
+      set shiftwidth=2 softtabstop=2 expandtab relativenumber
     '';
     extraConfigLua = ''
       if vim.g.neovide then

@@ -2,17 +2,17 @@
   description = "computer-science flake configuration.";
 
   inputs = {
-  # Nixpkgs
-  nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-  # Home 
-  home-manager.url = "github:nix-community/home-manager";
-  home-manager.inputs.nixpkgs.follows = "nixpkgs";
-  # Nixvim
-  nixvim = {
-    url = "github:nix-community/nixvim";
-  };
-  nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
-  sops.url = "github:Mic92/sops-nix";
+    # Nixpkgs
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Home 
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    # Nixvim
+    nixvim = {
+      url = "github:nix-community/nixvim";
+    };
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
+    sops.url = "github:Mic92/sops-nix";
   };
 
   outputs = {self, nixpkgs, home-manager, ...} @ inputs: let

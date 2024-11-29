@@ -43,7 +43,7 @@
     yt-dlp lazygit
     aria unp dust
     zoxide hyfetch
-    ptyxis
+    ffmpeg-full
     # Dev tooling
     devenv
     # Secrets
@@ -346,50 +346,17 @@
       treesitter-context.settings.line_numbers = true;
       treesitter-refactor.enable = true;
       treesitter-textobjects.enable = true;
+      # UI + Conveniences
+      # Nice completions
       coq-nvim.enable = true;
       coq-nvim.installArtifacts = true;
       coq-nvim.settings.auto_start = "shut-up";
-      # UI + Conveniences
-      # cmp = {
-      #   enable = true;
-      #   autoEnableSources = true;
-      #   settings.sources = [
-      #     {name = "nvim_lsp";}
-      # 	  {name = "path";}
-      # 	  {name = "buffer";}
-      #     {name = "nvim_lsp_document_symbol";}
-      #     {name = "nvim_lsp_signature_help";}
-      # 	  {name = "emoji";}
-      # 	  {name = "latex_symbols";}
-      #     {name = "luasnip";}
-      # 	];
-      # 	settings.mapping = {
-      #     "<C-Space>" = "cmp.mapping.complete()";
-      #     "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-      #     "<C-e>" = "cmp.mapping.close()";
-      #     "<C-f>" = "cmp.mapping.scroll_docs(4)";
-      #     "<CR>" = "cmp.mapping.confirm({ select = true })";
-      #     "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-      #     "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-      # 	};
-      #   settings.snippet.expand = ''
-      #     function(args)
-      #       require('luasnip').lsp_expand(args.body)
-      #     end
-      #   '';
-      # };
-      # cmp-nvim-lsp.enable = true;
-      # cmp-path.enable = true;
-      # cmp-buffer.enable = true;
-      # cmp-nvim-lsp-document-symbol.enable = true;
-      # cmp-nvim-lsp-signature-help.enable = true;
-      # cmp-emoji.enable = true;
-      # cmp-latex-symbols.enable = true;
-      # cmp_luasnip.enable = true;
       nvim-autopairs.enable = true;
       luasnip.enable = true;
+      friendly-snippets.enable = true;
       indent-blankline.enable = true;
       comment.enable = true;
+      # Other niceties
       todo-comments.enable = true;
       trouble.enable = true;
       oil.enable = true;
@@ -461,8 +428,17 @@
           tinymist.filetypes = [ "typst" "typ" ];
           # Markdown
           marksman.enable = true;
+          # HTML
+          superhtml.enable = true;
+          superhtml.package = pkgs.superhtml;
+          # TS/JS
+          ts_ls.enable = true;
+          ts_ls.autostart = false;
           # Deno
           denols.enable = true;
+          denols.package = null;
+          # Tailwind
+          tailwindcss.enable = true;
           # C
           clangd.enable = true;
           # Lua
@@ -472,8 +448,6 @@
           ocamllsp.package = null;
           # Dart
           dartls.enable = true;
-          # Tailwind
-          # tailwindcss.enable = true;
         };
       };
       # Additional Rust stuff

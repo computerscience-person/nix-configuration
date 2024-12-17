@@ -236,6 +236,8 @@
       hash = "sha256-xWjMw8xYN+o/6Yma3YOQB02EghrbdyFxEQp8TRtEtq0=";
     }}"; }
   ];
+
+  services.copyq.enable = true;
   services.gpg-agent.enable = true;
   services.gpg-agent.pinentryPackage = pkgs.pinentry-gtk2;
 
@@ -422,7 +424,6 @@
           };
           # Python
           pyright.enable = true;
-          ruff-lsp.enable = true;
           # Typst
           tinymist.enable = true;
           tinymist.filetypes = [ "typst" "typ" ];

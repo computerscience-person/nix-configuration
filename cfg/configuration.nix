@@ -142,6 +142,7 @@
       "org.kde.krita"
       "io.gitlab.adhami3310.Impression"
       "us.zoom.Zoom"
+      "com.discordapp.Discord"
     ];
   };
 

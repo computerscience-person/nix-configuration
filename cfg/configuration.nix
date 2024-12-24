@@ -221,7 +221,8 @@
 
   fonts.packages = with pkgs; [
     jetbrains-mono
-    (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "DroidSansMono" "UbuntuMono"];})
+    # (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "DroidSansMono" "UbuntuMono"];})
+    nerd-fonts.fira-code nerd-fonts.jetbrains-mono nerd-fonts.droid-sans-mono nerd-fonts.ubuntu-mono
   ];
 
   programs.adb.enable = true;

@@ -359,6 +359,7 @@
       indent-blankline.enable = true;
       comment.enable = true;
       # Other niceties
+      web-devicons.enable = true;
       todo-comments.enable = true;
       trouble.enable = true;
       oil.enable = true;
@@ -412,12 +413,12 @@
         };
         servers = {
           # Nix
-          nil-ls = {
+          nil_ls = {
             enable = true;
             package = null;
           };
           # Rust
-          rust-analyzer = {
+          rust_analyzer = {
             enable = true;
             installCargo = false;
             installRustc = false;
@@ -432,9 +433,10 @@
           # HTML
           superhtml.enable = true;
           superhtml.package = pkgs.superhtml;
+          # CSS
+          cssls.enable = true;
           # TS/JS
           ts_ls.enable = true;
-          ts_ls.autostart = false;
           # Deno
           denols.enable = true;
           denols.package = null;
@@ -443,12 +445,15 @@
           # C
           clangd.enable = true;
           # Lua
-          lua-ls.enable = true;
+          lua_ls.enable = true;
           # OCaml
           ocamllsp.enable = true;
           ocamllsp.package = null;
           # Dart
           dartls.enable = true;
+          # PHP
+          phpactor.enable = true;
+          phpactor.package = null;
         };
       };
       # Additional Rust stuff

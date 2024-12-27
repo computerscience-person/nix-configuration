@@ -12,6 +12,10 @@
       inputs.sops.nixosModules.sops
     ];
 
+  # Kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernel.sysctl."kernel.sysrq" = 1;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

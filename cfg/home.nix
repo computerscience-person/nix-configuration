@@ -518,5 +518,18 @@
       icon-theme = "Fluent-dark";
     };
   };
+
+  wayland.windowManager.river = {
+    enable = true;
+    package = null;
+    extraConfig = ''
+      riverctl map normal Super R spawn 'rofi -show'
+      riverctl map normal Super Q close
+      riverctl map normal Super+Shift Q exit
+      riverctl default-layout rivertile
+      rivertile -viewpadding 5 -outer-padding 5 &
+    '';
+  };
+
   xdg.enable = true;
 }

@@ -53,8 +53,6 @@
     sioyek emote
     # LSP's
     nil # Nix language server
-    # Fonts
-    fira-code-nerdfont jetbrains-mono
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -146,7 +144,7 @@
 
   programs.kitty = {
     enable = true;
-    font.name = "FiraCode Nerd Font";
+    font.name = "Fira Code Nerd Font";
     extraConfig = ''
       shell fish
     '';
@@ -523,9 +521,23 @@
     enable = true;
     package = null;
     extraConfig = ''
+      # Apps
       riverctl map normal Super R spawn 'rofi -show'
+      # WM
       riverctl map normal Super Q close
       riverctl map normal Super+Shift Q exit
+      riverctl map normal Super H focus-view previous
+      riverctl map normal Super L focus-view next
+      riverctl map normal Super J focus-output previous
+      riverctl map normal Super K focus-output next
+      riverctl map normal Super+Alt J send-to-output previous
+      riverctl map normal Super+Alt K send-to-output next
+      riverctl map normal Super Return zoom
+      riverctl map normal Super+Shift Comma send-layout-cmd rivertile "main-ratio -0.05"
+      riverctl map normal Super+Shift Period send-layout-cmd rivertile "main-ratio +0.05"
+      riverctl map normal Super Comma send-layout-cmd rivertile "main-count -1"
+      riverctl map normal Super Period send-layout-cmd rivertile "main-ration +1"
+      # Layout
       riverctl default-layout rivertile
       rivertile -viewpadding 5 -outer-padding 5 &
     '';

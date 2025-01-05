@@ -207,6 +207,11 @@
     enable = true;
   };
 
+  programs.chromium = {
+    enable = true;
+    package = pkgs.vivaldi;
+  };
+
   programs.alacritty = {
     enable = true;
     settings = {

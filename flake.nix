@@ -11,22 +11,21 @@
     nixvim = {
       url = "github:nix-community/nixvim";
     };
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
     sops.url = "github:Mic92/sops-nix";
   };
 
   outputs = {self, nixpkgs, home-manager, ...} @ inputs: let
     inherit (self) outputs;
+    system = "x86_64-linux";
   in {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
+        inherit system;
         specialArgs = {inherit inputs outputs;};
-        system = "x86_64-linux";
         # > Our main nixos configuration file <
         modules = [
-          inputs.nix-flatpak.nixosModules.nix-flatpak
           ./cfg/configuration.nix
         ];
       };
@@ -35,7 +34,10 @@
     # Available through 'home-manager --flake .  #your-username@your-hostname'
     homeConfigurations = {
     "virus-free" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance 
+      pkgs = import nixpkgs { 
+          inherit system;
+          config.allowUnfree = true;
+      };
       extraSpecialArgs = {inherit inputs;};
       # > Our main home-manager configuration file <
       modules = [

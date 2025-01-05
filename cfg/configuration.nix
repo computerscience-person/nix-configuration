@@ -141,17 +141,6 @@
   services.blueman.enable = true;
   services.flatpak = {
     enable = true;
-    packages = [
-      "com.vivaldi.Vivaldi"
-      "org.signal.Signal"
-      "com.github.vkohaupt.vokoscreenNG"
-      "io.github.flattool.Warehouse"
-      "com.github.tchx84.Flatseal"
-      "org.kde.krita"
-      "io.gitlab.adhami3310.Impression"
-      "us.zoom.Zoom"
-      "com.discordapp.Discord"
-    ];
   };
 
   # Enable bluetooth

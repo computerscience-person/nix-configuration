@@ -361,6 +361,8 @@
       friendly-snippets.enable = true;
       indent-blankline.enable = true;
       comment.enable = true;
+      wrapping.enable = true;
+      neoconf.enable = true;
       # Other niceties
       web-devicons.enable = true;
       todo-comments.enable = true;
@@ -371,6 +373,7 @@
       lualine.enable = true;
       bufferline.enable = true;
       which-key.enable = true;
+      precognition.enable = true;
       wilder.enable = true;
       jupytext.enable = true;
       lspsaga.enable = true;
@@ -466,6 +469,8 @@
       ts-autotag = {
         enable = true;
       };
+      # Markdown
+      render-markdown.enable = true;
     };
     extraConfigVim = ''
       set shiftwidth=2 softtabstop=2 expandtab relativenumber

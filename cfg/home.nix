@@ -40,7 +40,7 @@
     mtr glow broot 
     neovide alacritty
     vscodium-fhs
-    yt-dlp lazygit
+    yt-dlp 
     aria unp dust
     zoxide hyfetch
     ffmpeg-full
@@ -53,6 +53,14 @@
     sioyek emote
     # LSP's
     nil # Nix language server
+    # Vivaldi
+    (vivaldi.overrideAttrs (
+      finalAttrs: previousAttrs: {
+        dontWrapQtApps = false;
+        dontPatchElf = true;
+        nativeBuildInputs = previousAttrs.nativeBuildInputs ++ [pkgs.kdePackages.wrapQtAppsHook];
+        }
+    ))
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -205,11 +213,6 @@
 
   programs.firefox = {
     enable = true;
-  };
-
-  programs.chromium = {
-    enable = true;
-    package = pkgs.vivaldi;
   };
 
   programs.alacritty = {
@@ -498,60 +501,9 @@
   # Desktop Appearance
   gtk = {
     enable = true;
-    cursorTheme = {
-      name = "Bibata-Modern-Ice";
-      package = pkgs.bibata-cursors;
-    };
-
-    iconTheme = {
-      name = "Fluent-dark";
-      package = pkgs.fluent-icon-theme;
-    };
-
-    theme = {
-      name = "Dracula";
-      package = pkgs.dracula-theme;
-    };
   };
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
-    style.name = "adwaita-gtk";
   };
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-      # gtk-theme = "Catppuccin-Frappe-Standard-Blue-light";
-      cursor-theme = "Bibata-Modern-Ice";
-      icon-theme = "Fluent-dark";
-    };
-  };
-
-  wayland.windowManager.river = {
-    enable = true;
-    package = null;
-    extraConfig = ''
-      # Apps
-      riverctl map normal Super R spawn 'rofi -show'
-      # WM
-      riverctl map normal Super Q close
-      riverctl map normal Super+Shift Q exit
-      riverctl map normal Super H focus-view previous
-      riverctl map normal Super L focus-view next
-      riverctl map normal Super J focus-output previous
-      riverctl map normal Super K focus-output next
-      riverctl map normal Super+Alt J send-to-output previous
-      riverctl map normal Super+Alt K send-to-output next
-      riverctl map normal Super Return zoom
-      riverctl map normal Super+Shift Comma send-layout-cmd rivertile "main-ratio -0.05"
-      riverctl map normal Super+Shift Period send-layout-cmd rivertile "main-ratio +0.05"
-      riverctl map normal Super Comma send-layout-cmd rivertile "main-count -1"
-      riverctl map normal Super Period send-layout-cmd rivertile "main-ration +1"
-      # Layout
-      riverctl default-layout rivertile
-      rivertile -viewpadding 5 -outer-padding 5 &
-    '';
-  };
-
   xdg.enable = true;
 }

@@ -78,13 +78,9 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   # Enable the XFCE Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.displayManager.lightdm.greeters.slick.enable = true;
-
-  services.xserver.desktopManager.xfce.enable = true;
-  services.xserver.desktopManager.xfce.enableWaylandSession = true;
-  services.xserver.desktopManager.xfce.waylandSessionCompositor = "river";
-  programs.river.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -96,6 +92,7 @@
   xdg.portal.extraPortals = [ 
     pkgs.xdg-desktop-portal-xapp
     pkgs.xdg-desktop-portal-gtk
+    pkgs.libsForQt5.xdg-desktop-portal-kde
   ];
 
   # Enable CUPS to print documents.
@@ -203,17 +200,13 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
     home-manager
-    xfce.thunar-volman
-    # xfce.xfce4-pulseaudio-plugin
-    xfce.xfce4-sensors-plugin
-    xfce.xfce4-netload-plugin
-    xfce.xfce4-dict
-    xfce.xfce4-volumed-pulse
     btrfs-progs
     btrfs-assistant
     ntfs3g
     appimage-run
     distrobox
+    libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.qt5.qtwayland
   ];
 
   fonts.packages = with pkgs; [

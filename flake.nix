@@ -10,8 +10,10 @@
     # Nixvim
     nixvim = {
       url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     sops.url = "github:Mic92/sops-nix";
+    sops.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {self, nixpkgs, home-manager, ...} @ inputs: let

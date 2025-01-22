@@ -75,7 +75,6 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" ];
 
   # Enable the XFCE Desktop Environment.
   services.displayManager.sddm.enable = true;
@@ -135,7 +134,6 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-  services.blueman.enable = true;
   services.flatpak = {
     enable = true;
   };

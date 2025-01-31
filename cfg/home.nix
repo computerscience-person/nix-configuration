@@ -39,6 +39,7 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    # Tools
     fastfetch ripgrep eza
     mtr glow broot 
     neovide alacritty
@@ -64,6 +65,8 @@
         nativeBuildInputs = previousAttrs.nativeBuildInputs ++ [pkgs.kdePackages.wrapQtAppsHook];
         }
     ))
+    # Document writing
+    typst
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -120,6 +123,16 @@
 
   programs.helix = {
     enable = true;
+    # languages = {
+    #   language = [
+    #     {
+    #       name = "typst";
+    #     }
+    #   ];
+    # };
+    extraPackages = with pkgs; [
+      tinymist markdown-oxide
+    ];
     settings.theme = "darcula-solid";
     settings.editor.cursor-shape = {
       insert = "bar";
@@ -133,6 +146,14 @@
     extensions = [
       "the-dark-side"
     ];
+  };
+
+  programs.pandoc = {
+    enable = true;
+    defaults = {
+      metadata.author = "Oliver Ladores";
+      pdf-engine = "typst";
+    };
   };
 
   programs.starship = {
@@ -198,6 +219,7 @@
       sw = "switch";
     };
     delta.enable = true;
+    lfs.enable = true;
     # extraConfig.core.sparseCheckout
   };
 

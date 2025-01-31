@@ -182,11 +182,6 @@
           };
           # Python
           pyright.enable = true;
-          # Typst
-          tinymist.enable = true;
-          tinymist.filetypes = [ "typst" "typ" ];
-          # Markdown
-          marksman.enable = true;
           # HTML
           superhtml.enable = true;
           superhtml.package = pkgs.superhtml;
@@ -211,6 +206,9 @@
           # PHP
           phpactor.enable = true;
           phpactor.package = null;
+          # Ada
+          ada_ls.enable = true;
+          ada_ls.package = null;
         };
       };
       # Additional Rust stuff
@@ -220,8 +218,6 @@
       ts-autotag = {
         enable = true;
       };
-      # Markdown
-      render-markdown.enable = true;
     };
     extraConfigVim = ''
       set shiftwidth=2 softtabstop=2 expandtab relativenumber

@@ -49,7 +49,7 @@
     zoxide hyfetch
     ffmpeg-full fabric-ai
     # Dev tooling
-    devenv pijul
+    devenv pijul vale
     # Secrets
     minisign sops age
     # GUI
@@ -123,21 +123,29 @@
 
   programs.helix = {
     enable = true;
-    # languages = {
-    #   language = [
-    #     {
-    #       name = "typst";
-    #     }
-    #   ];
-    # };
     extraPackages = with pkgs; [
-      tinymist markdown-oxide
+      tinymist markdown-oxide vale-ls harper
     ];
     settings.theme = "darcula-solid";
     settings.editor.cursor-shape = {
       insert = "bar";
       normal = "block";
       select = "underline";
+    };
+    languages = {
+      language-server = {
+        harper-ls = {
+          command = "harper-ls";
+          args = ["--stdio"];
+        };
+      };
+      languages = [{
+        name = "markdown";
+        language-servers = [
+          "markdown-oxide" "vale-ls"
+        ];
+        text-width = 120;
+      }];
     };
   };
 
@@ -271,12 +279,6 @@
   services.ssh-agent.enable = true;
   services.gpg-agent.enable = true;
   services.gpg-agent.pinentryPackage = pkgs.pinentry-qt;
-
-  programs.emacs = {
-    enable = true;
-  };
-
-  
   # Fonts
   fonts.fontconfig.enable = true;
   # Desktop Appearance

@@ -104,10 +104,7 @@
       treesitter-textobjects.enable = true;
       # UI + Conveniences
       # Nice completions
-      coq-nvim.enable = true;
-      coq-nvim.installArtifacts = true;
-      coq-nvim.settings.auto_start = "shut-up";
-      nvim-autopairs.enable = true;
+      blink-cmp.enable = true;
       luasnip.enable = true;
       friendly-snippets.enable = true;
       indent-blankline.enable = true;

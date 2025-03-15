@@ -134,6 +134,14 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  services.power-profiles-daemon.enable = false;
+  services.tlp = {
+    enable = true;
+    settings = {
+      RADEON_DPM_PERF_LEVEL_ON_AC="low";
+      RADEON_DPM_PERF_LEVEL_ON_BAT="low";
+    };
+  };
   services.flatpak = {
     enable = true;
   };
@@ -211,6 +219,8 @@
     jetbrains-mono
     # (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "DroidSansMono" "UbuntuMono"];})
     nerd-fonts.fira-code nerd-fonts.jetbrains-mono nerd-fonts.droid-sans-mono nerd-fonts.ubuntu-mono
+    wine64Packages.fonts
+    liberation_ttf times-newer-roman corefonts vista-fonts
   ];
 
   programs.adb.enable = true;

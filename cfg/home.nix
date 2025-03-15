@@ -48,6 +48,7 @@
     aria unp dust
     zoxide hyfetch
     ffmpeg-full fabric-ai
+    rclone
     # Dev tooling
     devenv pijul vale
     # Secrets
@@ -127,10 +128,13 @@
       tinymist markdown-oxide vale-ls harper
     ];
     settings.theme = "darcula-solid";
-    settings.editor.cursor-shape = {
-      insert = "bar";
-      normal = "block";
-      select = "underline";
+    settings.editor = {
+      text-width = 120;
+      cursor-shape = {
+        insert = "bar";
+        normal = "block";
+        select = "underline";
+      };
     };
     languages = {
       language-server = {
@@ -139,12 +143,17 @@
           args = ["--stdio"];
         };
       };
-      languages = [{
+      language = [{
         name = "markdown";
         language-servers = [
-          "markdown-oxide" "vale-ls"
+          "markdown-oxide" "vale-ls" "harper-ls"
         ];
         text-width = 120;
+      } {
+        name = "typst";
+        language-servers = [
+          "tinymist" "harper-ls" "vale-ls"
+        ];
       }];
     };
   };

@@ -37,6 +37,27 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.dns = "none";
+  networking.useDHCP = false;
+  networking.dhcpcd.enable = false;
+
+  # Configure DNS servers manually (this example uses Cloudflare and Google DNS)
+  # IPv6 DNS servers can be used here as well.
+  networking.nameservers = [
+    "9.9.9.9"
+    "149.112.112.112"
+    "76.76.2.1"
+    "76.76.10.1"
+    "1.1.1.1"
+    "1.0.0.1"
+    "2620:fe::fe"
+    "2620:fe::9"
+    "2606:1a40::1"
+    "2606:1a40:1::1"
+    "2606:4700:4700::1111"
+    "2606:4700:4700::1001"
+  ];
+
 
   # Set your time zone.
   time.timeZone = "Asia/Manila";
@@ -175,7 +196,6 @@
     packages = with pkgs; [
     # firefox
     #  thunderbird
-    wine64
     ];
   };
 
@@ -220,7 +240,7 @@
     # (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "DroidSansMono" "UbuntuMono"];})
     nerd-fonts.fira-code nerd-fonts.jetbrains-mono nerd-fonts.droid-sans-mono nerd-fonts.ubuntu-mono
     wine64Packages.fonts
-    liberation_ttf times-newer-roman corefonts vista-fonts
+    liberation_ttf times-newer-roman corefonts vista-fonts stix-two
   ];
 
   programs.adb.enable = true;

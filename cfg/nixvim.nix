@@ -206,6 +206,9 @@
           # Ada
           ada_ls.enable = true;
           ada_ls.package = null;
+          # Godot
+          gdscript.enable = true;
+          gdscript.package = null;
         };
       };
       # Additional Rust stuff

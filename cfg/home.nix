@@ -49,6 +49,8 @@
     zoxide hyfetch
     ffmpeg-full fabric-ai
     rclone
+    wine winetricks
+    python3Packages.markitdown
     # Dev tooling
     devenv pijul vale
     # Secrets

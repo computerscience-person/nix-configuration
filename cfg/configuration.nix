@@ -233,6 +233,7 @@
     distrobox
     libsForQt5.qtstyleplugin-kvantum
     libsForQt5.qt5.qtwayland
+    libsForQt5.qt5.qtvirtualkeyboard
   ];
 
   fonts.packages = with pkgs; [
@@ -267,6 +268,7 @@
         storage.driver = "btrfs";
       };
     };
+    waydroid.enable = true;
   };
 
   # Secrets (sops)

@@ -58,6 +58,7 @@
     # GUI
     keepassxc mupdf 
     sioyek emote
+    maliit-keyboard
     # LSP's
     nil # Nix language server
     # Vivaldi
@@ -126,6 +127,7 @@
 
   programs.helix = {
     enable = true;
+    package = pkgs.evil-helix;
     extraPackages = with pkgs; [
       tinymist markdown-oxide vale-ls harper
     ];
@@ -156,6 +158,7 @@
         language-servers = [
           "tinymist" "harper-ls" "vale-ls"
         ];
+        text-width = 120;
       }];
     };
   };
@@ -177,6 +180,7 @@
 
   programs.starship = {
     enable = true;
+    settings = builtins.fromTOML (builtins.readFile ./starship/jetpack.toml);
   };
 
   programs.mpv = {

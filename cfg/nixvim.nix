@@ -62,6 +62,13 @@
           # M = Alt key
           "<M-k>" = ":move-2<CR>";
           "<M-j>" = ":move+<CR>";
+
+          "s" = ''
+            function() require("flash").jump() end
+          '';
+          "S" = ''
+            function() require("flash").treesitter() end
+          '';
         };
       visual =
         lib.mapAttrsToList
@@ -80,10 +87,52 @@
           "K" = ":m '<-2<CR>gv=gv";
           "J" = ":m '>+1<CR>gv=gv";
         };
+      operator =
+        lib.mapAttrsToList
+        (key: action: {
+          mode = "o";
+          inherit action key;
+        }){
+          "R" = ''
+            function() require("flash").treesitter_search() end
+          '';
+          "s" = ''
+            function() require("flash").jump() end
+          '';
+          "S" = ''
+            function() require("flash").treesitter() end
+          '';
+        };
+      x_mode =
+        lib.mapAttrsToList
+        (key: action: {
+          mode = "x";
+          inherit action key;
+        }){
+          "R" = ''
+            function() require("flash").treesitter_search() end
+          '';
+          "s" = ''
+            function() require("flash").jump() end
+          '';
+          "S" = ''
+            function() require("flash").treesitter() end
+          '';
+        };
+      command =
+        lib.mapAttrsToList
+        (key: action: {
+          mode = "c";
+          inherit action key;
+        }){
+          "<c-s>" = ''
+            function() require("flash").toggle() end
+          '';
+        };
     in
       config.nixvim.helpers.keymaps.mkKeymaps
-      {options.silent = true;}
-      (normal ++ visual);
+      {options.silent = false;}
+      (normal ++ visual ++ operator ++ x_mode);
     # --| from github:GaetanLepage
     colorschemes.oxocarbon.enable = true;
     clipboard.providers.xsel.enable = true;
@@ -117,15 +166,28 @@
       trouble.enable = true;
       oil.enable = true;
       gitsigns.enable = true;
-      flash.enable = true;
       lualine.enable = true;
       bufferline.enable = true;
       which-key.enable = true;
       precognition.enable = true;
       wilder.enable = true;
       jupytext.enable = true;
+      autoclose.enable = true;
       lspsaga.enable = true;
       lspsaga.lightbulb.debounce = 250;
+      flash = {
+        enable = true;
+        settings = {
+          modes = {
+            char = {
+              jump_labels = true;
+            };
+            search = {
+              enabled = true;
+            };
+          };
+        };
+      };
       # Telescope
       telescope = {
         enable = true;
@@ -178,7 +240,10 @@
             installRustc = false;
           };
           # Python
-          pyright.enable = true;
+          pyright = {
+            enable = true;
+            package = null;
+          };
           # HTML
           superhtml.enable = true;
           superhtml.package = pkgs.superhtml;

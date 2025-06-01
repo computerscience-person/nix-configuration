@@ -132,7 +132,7 @@
     in
       config.nixvim.helpers.keymaps.mkKeymaps
       {options.silent = false;}
-      (normal ++ visual ++ operator ++ x_mode);
+      (normal ++ visual ++ operator ++ x_mode ++ command);
     # --| from github:GaetanLepage
     colorschemes.oxocarbon.enable = true;
     clipboard.providers.xsel.enable = true;
@@ -160,6 +160,14 @@
       comment.enable = true;
       wrapping.enable = true;
       neoconf.enable = true;
+      autoclose.enable = true;
+      emmet.enable = true;
+      # Change default emmet key
+      emmet.settings = {
+        leader_key = "<c-h>";
+      };
+      avante.enable = true;
+      avante.settings.provider = "gemini";
       # Other niceties
       web-devicons.enable = true;
       todo-comments.enable = true;
@@ -170,9 +178,9 @@
       bufferline.enable = true;
       which-key.enable = true;
       precognition.enable = true;
-      wilder.enable = true;
       jupytext.enable = true;
-      autoclose.enable = true;
+      wilder.enable = true;
+      neocord.enable = true;
       lspsaga.enable = true;
       lspsaga.lightbulb.debounce = 250;
       flash = {
@@ -238,6 +246,7 @@
             enable = true;
             installCargo = false;
             installRustc = false;
+            package = null;
           };
           # Python
           pyright = {
@@ -245,12 +254,13 @@
             package = null;
           };
           # HTML
-          superhtml.enable = true;
-          superhtml.package = pkgs.superhtml;
+          html.enable = true;
           # CSS
           cssls.enable = true;
-          # TS/JS
+          # JS/TS
           ts_ls.enable = true;
+          # JSON
+          jsonls.enable = true;
           # Deno
           denols.enable = true;
           denols.package = null;
@@ -265,6 +275,7 @@
           ocamllsp.package = null;
           # Dart
           dartls.enable = true;
+          dartls.package = null;
           # PHP
           phpactor.enable = true;
           phpactor.package = null;
@@ -277,7 +288,7 @@
         };
       };
       # Additional Rust stuff
-      crates-nvim.enable = true;
+      crates.enable = true;
       # rustaceanvim.enable = true;
       # HTML Templating
       ts-autotag = {

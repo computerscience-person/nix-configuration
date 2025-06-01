@@ -43,13 +43,12 @@
     fastfetch ripgrep eza
     mtr glow broot 
     neovide alacritty
-    vscodium-fhs
     yt-dlp 
     aria unp dust
     zoxide hyfetch
     ffmpeg-full fabric-ai
     rclone
-    wine winetricks
+    wineWowPackages.staging winetricks
     python3Packages.markitdown
     # Dev tooling
     devenv pijul vale
@@ -129,7 +128,7 @@
     enable = true;
     package = pkgs.evil-helix;
     extraPackages = with pkgs; [
-      tinymist markdown-oxide vale-ls harper
+      tinymist markdown-oxide harper vscode-langservers-extracted emmet-language-server
     ];
     settings.theme = "darcula-solid";
     settings.editor = {
@@ -139,6 +138,9 @@
         normal = "block";
         select = "underline";
       };
+      soft-wrap = {
+        enable = true;
+      };
     };
     languages = {
       language-server = {
@@ -146,19 +148,28 @@
           command = "harper-ls";
           args = ["--stdio"];
         };
+        emmet = {
+          command = "emmet-language-server";
+          args = ["--stdio"];
+        };
       };
       language = [{
         name = "markdown";
         language-servers = [
-          "markdown-oxide" "vale-ls" "harper-ls"
+          "markdown-oxide" "harper-ls"
         ];
         text-width = 120;
       } {
         name = "typst";
         language-servers = [
-          "tinymist" "harper-ls" "vale-ls"
+          "tinymist" "harper-ls" 
         ];
         text-width = 120;
+      } {
+        name = "html";
+        language-servers = [
+          "vscode-html-language-server" "harper-ls" "emmet"
+        ];
       }];
     };
   };
@@ -290,6 +301,16 @@
       hash = "sha256-xWjMw8xYN+o/6Yma3YOQB02EghrbdyFxEQp8TRtEtq0=";
     }}"; }
   ];
+
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [ 
+      input-overlay
+      obs-pipewire-audio-capture
+      obs-backgroundremoval
+      obs-freeze-filter
+    ];
+  };
 
   services.ssh-agent.enable = true;
   services.gpg-agent.enable = true;

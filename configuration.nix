@@ -155,14 +155,6 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-  services.power-profiles-daemon.enable = false;
-  services.tlp = {
-    enable = true;
-    settings = {
-      RADEON_DPM_PERF_LEVEL_ON_AC="low";
-      RADEON_DPM_PERF_LEVEL_ON_BAT="low";
-    };
-  };
   services.flatpak = {
     enable = true;
   };
@@ -250,6 +242,12 @@
   services.openssh.enable = true;
 
   services.dbus.packages = [ pkgs.gcr ];
+  
+  services.power-profiles-daemon.enable = true;
+
+  services.udev.packages = let
+    microbit = pkgs.callPackage ./packages/microbit-udev/package.nix { } ;
+  in [ microbit ];
 
   virtualisation = {
     podman = {

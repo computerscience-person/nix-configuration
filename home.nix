@@ -43,11 +43,11 @@
     fastfetch ripgrep eza
     mtr glow broot 
     neovide alacritty
-    yt-dlp 
-    aria unp dust
+    yt-dlp xh
+    unp dust
     zoxide hyfetch
     ffmpeg-full fabric-ai
-    rclone
+    rclone tpm2-tools
     wineWowPackages.staging winetricks
     python3Packages.markitdown
     # Dev tooling
@@ -69,7 +69,7 @@
         }
     ))
     # Document writing
-    typst
+    typst asciidoctor-with-extensions
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

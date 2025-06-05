@@ -134,8 +134,8 @@
       {options.silent = false;}
       (normal ++ visual ++ operator ++ x_mode ++ command);
     # --| from github:GaetanLepage
-    colorschemes.oxocarbon.enable = true;
-    clipboard.providers.xsel.enable = true;
+    colorschemes.dracula-nvim.enable = true;
+    clipboard.providers.wl-copy.enable = true;
     plugins = {
       # Treesitter
       treesitter = {
@@ -269,7 +269,9 @@
           # C
           clangd.enable = true;
           # Lua
-          lua_ls.enable = true;
+          lua_ls = {
+            enable = true;
+          };
           # OCaml
           ocamllsp.enable = true;
           ocamllsp.package = null;
@@ -315,5 +317,10 @@
         vim.g.neovide_cursor_vfx_mode = "pixiedust"
       end
     '';
+    extraPlugins = let
+      love2d-nvim = pkgs.callPackage ./packages/love2d-nvim/package.nix { };
+    in [
+      love2d-nvim
+    ];
   };
 }

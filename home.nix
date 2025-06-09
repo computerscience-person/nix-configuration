@@ -42,8 +42,7 @@
     # Tools
     fastfetch ripgrep eza
     mtr glow broot 
-    neovide alacritty
-    yt-dlp xh
+    neovide alacritty xh
     unp dust
     zoxide hyfetch
     ffmpeg-full fabric-ai
@@ -197,6 +196,8 @@
   programs.mpv = {
     enable = true;
   };
+
+  programs.yt-dlp.enable = true;
 
   programs.wezterm = {
     enable = true;

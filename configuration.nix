@@ -19,8 +19,13 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.theme = "${pkgs.minimal-grub-theme}";
   boot.plymouth = {
     enable = true;
+    themePackages = [
+      (pkgs.callPackage ./packages/plymouth-dracula/package.nix { })
+    ];
+    theme = "dracula";
   };
 
   fileSystems = {
@@ -278,7 +283,13 @@
   # networking.firewall.allowedTCPPorts = [ 6969 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPortRanges = [
+    {
+      from = 9000;
+      to = 9999;
+    }
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

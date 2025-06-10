@@ -123,7 +123,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [
-    epson-escpr epson-escpr2
+    epson-escpr epson-escpr2 (pkgs.callPackage ./packages/epson-202101w/package.nix { })
   ];
 
   # Enable sound with ipewire.

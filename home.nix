@@ -40,17 +40,13 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
     # Tools
-    fastfetch ripgrep eza
-    mtr glow broot 
-    neovide alacritty xh
-    unp dust
-    zoxide hyfetch
-    ffmpeg-full fabric-ai
-    rclone tpm2-tools
+    fastfetch ripgrep eza broot neovide alacritty xh
+    ouch dust zoxide ffmpeg-full fabric-ai
+    tpm2-tools comma
     wineWowPackages.staging winetricks
     python3Packages.markitdown
     # Dev tooling
-    devenv pijul vale
+    devenv pijul 
     # Secrets
     minisign sops age
     # GUI
@@ -104,7 +100,7 @@
   #
   home.sessionVariables = {
     EDITOR = "hx";
-    SHELL = "fish";
+    SHELL = "nu";
   };
 
   # Let Home Manager install and manage itself.
@@ -112,6 +108,11 @@
 
   programs.zellij = {
     enable = true;
+    settings = {
+      default_shell = "nu";
+      default_mode = "locked";
+      theme = "dracula";
+    };
     # enableFishIntegration = true;
   };
 
@@ -199,41 +200,42 @@
 
   programs.yt-dlp.enable = true;
 
-  programs.wezterm = {
-    enable = true;
-    # extraConfig = ''
-    #   return {
-    #     font = wezterm.font("Fira Code Nerd Font Mono"),
-    #     default_prog = { "fish", "-l" }
-    #   }
-    # '';
-  };
-
   programs.kitty = {
     enable = true;
     font.name = "Fira Code Nerd Font";
     extraConfig = ''
-      shell fish
+      shell nu
     '';
   };
 
-  programs.rio = {
+  programs.carapace = {
     enable = true;
-    settings = {
-      fonts.family = "FiraCode Nerd Font";
-      shell.program = "fish";
-      shell.args = [];
-      editor.program = "neovide&";
-      editor.args = [];
+    enableFishIntegration = true;
+    enableNushellIntegration = true;
+    enableBashIntegration = true;
+  };
+
+  programs.nushell = {
+    enable = true;
+    shellAliases = {
+      g = "git";
     };
+    extraConfig = ''
+      source ~/.cache/carapace/init.nu
+    '';
+    extraEnv = ''
+      $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
+      mkdir ~/.cache/carapace
+      carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+    '';
   };
 
   programs.fish = {
     enable = true;
-    functions = {
-      mountShtuffs = "sudo mount -t btrfs -o user,rw,exec,compress=zstd /dev/disk/by-uuid/17d12767-23df-47f0-921f-9dbf544a7f82 /mnt/Shtuffs";
-      cdShtuffs = "cd /mnt/Shtuffs";
-    };
+    # functions = {
+    #   mountShtuffs = "sudo mount -t btrfs -o user,rw,exec,compress=zstd /dev/disk/by-uuid/17d12767-23df-47f0-921f-9dbf544a7f82 /mnt/Shtuffs";
+    #   cdShtuffs = "cd /mnt/Shtuffs";
+    # };
   };
 
   programs.rofi = {
@@ -292,8 +294,11 @@
   programs.direnv = {
     enable = true;
     enableBashIntegration = true;
+    enableNushellIntegration = true;
     nix-direnv.enable = true;
   };
+
+  programs.rclone.enable = true;
 
   programs.gpg.enable = true;
   programs.gpg.publicKeys = [
@@ -312,6 +317,8 @@
       obs-freeze-filter
     ];
   };
+
+  programs.nix-index.enable = true;
 
   services.ssh-agent.enable = true;
   services.gpg-agent.enable = true;

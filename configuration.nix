@@ -191,7 +191,7 @@
   users.users.virus-free = {
     isNormalUser = true;
     description = "Oliver Ladores";
-    extraGroups = [ "networkmanager" "wheel" "tss" "adbusers" ];
+    extraGroups = [ "networkmanager" "wheel" "tss" "adbusers" "lp" ];
     packages = with pkgs; [
     # firefox
     #  thunderbird

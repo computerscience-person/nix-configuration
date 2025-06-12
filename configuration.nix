@@ -124,6 +124,8 @@
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [
     epson-escpr epson-escpr2 (pkgs.callPackage ./packages/epson-202101w/package.nix { })
+    (pkgs.callPackage ./packages/brother-dcpt430w/package.nix { })
+    gutenprint gutenprintBin
   ];
 
   # Enable sound with ipewire.

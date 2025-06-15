@@ -2,9 +2,8 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  gitUpdater
+  gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "microbit-udev";
   version = "0.1.0";
@@ -28,15 +27,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "Udev rules for BBC micro:bit.";
     homepage = "https://github.com/SerElliot/microbit-udev";
     license = with lib.licenses; [
-      asl20 mit
+      asl20
+      mit
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 })

@@ -4,7 +4,6 @@
   lib,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "plymouth-dracula-theme";
   version = "0-unstable-2021-01-14";
@@ -26,13 +25,13 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Dracula theme for Plymouth";
     homepage = "https://github.com/dracula/grub";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

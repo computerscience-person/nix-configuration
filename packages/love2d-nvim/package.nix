@@ -1,9 +1,8 @@
 {
   lib,
   fetchFromGitHub,
-  vimUtils
+  vimUtils,
 }:
-
 vimUtils.buildVimPlugin {
   name = "love2d.nvim";
   version = "1.0.1";

@@ -14,7 +14,6 @@
   libredirect,
   debugLvl ? "0",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cups-brother-dcpt430w";
   version = "3.6.1-1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     dpkg
     makeWrapper
   ];
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   dontUnpack = true;
 
@@ -55,24 +54,24 @@ stdenv.mkDerivation (finalAttrs: {
 
     wrapProgram $WRAPPER \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          gnugrep
-          gnused
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gnugrep
+        gnused
+      ]
+    }
 
     wrapProgram $LPDDIR/filter_dcpt430w \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          ghostscript
-          gnugrep
-          gnused
-          which
-          file
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        ghostscript
+        gnugrep
+        gnused
+        which
+        file
+      ]
+    }
 
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
       $LPDDIR/brdcpt430wfilter
@@ -108,8 +107,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Brother DCP-T430W printer driver";
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [];
     platforms = [
       "x86_64-linux"
       "i686-linux"

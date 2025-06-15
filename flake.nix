@@ -4,7 +4,7 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Home 
+    # Home
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # Nixvim
@@ -14,9 +14,16 @@
     };
     sops.url = "github:Mic92/sops-nix";
     sops.inputs.nixpkgs.follows = "nixpkgs";
+    alejandra.url = "github:kamadorueda/alejandra/4.0.0";
+    alejandra.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = {self, nixpkgs, home-manager, ...} @ inputs: let
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  } @ inputs: let
     inherit (self) outputs;
     system = "x86_64-linux";
   in {
@@ -35,17 +42,18 @@
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .  #your-username@your-hostname'
     homeConfigurations = {
-    "virus-free" = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs { 
+      "virus-free" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-      };
-      extraSpecialArgs = {inherit inputs;};
-      # > Our main home-manager configuration file <
-      modules = [
-        ./home.nix
+        };
+        extraSpecialArgs = {inherit inputs;};
+        # > Our main home-manager configuration file <
+        modules = [
+          ./home.nix
         ];
       };
     };
+    formatter.${system} = inputs.alejandra.defaultPackage.${system};
   };
 }

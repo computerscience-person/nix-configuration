@@ -1,9 +1,13 @@
-{ config, pkgs, inputs, lib,  ... }:
-
-{ 
-  imports = [ 
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}: {
+  imports = [
     inputs.nixvim.homeManagerModules.nixvim
-    (import ./nixvim.nix { inherit config pkgs inputs lib ;})
+    (import ./nixvim.nix {inherit config pkgs inputs lib;})
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -21,8 +25,7 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs; 
-  [
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -40,18 +43,35 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
     # Tools
-    fastfetch ripgrep eza broot neovide alacritty xh
-    ouch dust zoxide ffmpeg-full fabric-ai
-    tpm2-tools comma
-    wineWowPackages.staging winetricks
+    fastfetch
+    ripgrep
+    eza
+    broot
+    neovide
+    alacritty
+    xh
+    ouch
+    dust
+    zoxide
+    ffmpeg-full
+    fabric-ai
+    tpm2-tools
+    comma
+    wineWowPackages.staging
+    winetricks
     python3Packages.markitdown
     # Dev tooling
-    devenv pijul 
+    devenv
+    pijul
     # Secrets
-    minisign sops age
+    minisign
+    sops
+    age
     # GUI
-    keepassxc mupdf 
-    sioyek emote
+    keepassxc
+    mupdf
+    sioyek
+    emote
     maliit-keyboard
     # LSP's
     nil # Nix language server
@@ -61,10 +81,11 @@
         dontWrapQtApps = false;
         dontPatchElf = true;
         nativeBuildInputs = previousAttrs.nativeBuildInputs ++ [pkgs.kdePackages.wrapQtAppsHook];
-        }
+      }
     ))
     # Document writing
-    typst asciidoctor-with-extensions
+    typst
+    asciidoctor-with-extensions
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -128,7 +149,11 @@
     enable = true;
     package = pkgs.evil-helix;
     extraPackages = with pkgs; [
-      tinymist markdown-oxide harper vscode-langservers-extracted emmet-language-server
+      tinymist
+      markdown-oxide
+      harper
+      vscode-langservers-extracted
+      emmet-language-server
     ];
     settings.theme = "darcula-solid";
     settings.editor = {
@@ -153,24 +178,32 @@
           args = ["--stdio"];
         };
       };
-      language = [{
-        name = "markdown";
-        language-servers = [
-          "markdown-oxide" "harper-ls"
-        ];
-        text-width = 120;
-      } {
-        name = "typst";
-        language-servers = [
-          "tinymist" "harper-ls" 
-        ];
-        text-width = 120;
-      } {
-        name = "html";
-        language-servers = [
-          "vscode-html-language-server" "harper-ls" "emmet"
-        ];
-      }];
+      language = [
+        {
+          name = "markdown";
+          language-servers = [
+            "markdown-oxide"
+            "harper-ls"
+          ];
+          text-width = 120;
+        }
+        {
+          name = "typst";
+          language-servers = [
+            "tinymist"
+            "harper-ls"
+          ];
+          text-width = 120;
+        }
+        {
+          name = "html";
+          language-servers = [
+            "vscode-html-language-server"
+            "harper-ls"
+            "emmet"
+          ];
+        }
+      ];
     };
   };
 
@@ -243,7 +276,7 @@
     terminal = "\${pkgs.kitty}/bin/kitty";
     theme = "./rofi/theme/config1.rasi";
   };
-  
+
   programs.git = {
     enable = true;
     userName = "Oliver Ladores";
@@ -302,15 +335,17 @@
 
   programs.gpg.enable = true;
   programs.gpg.publicKeys = [
-    { source = "${ pkgs.fetchurl { 
-      url = "https://keys.openpgp.org";
-      hash = "sha256-xWjMw8xYN+o/6Yma3YOQB02EghrbdyFxEQp8TRtEtq0=";
-    }}"; }
+    {
+      source = "${pkgs.fetchurl {
+        url = "https://keys.openpgp.org";
+        hash = "sha256-xWjMw8xYN+o/6Yma3YOQB02EghrbdyFxEQp8TRtEtq0=";
+      }}";
+    }
   ];
 
   programs.obs-studio = {
     enable = true;
-    plugins = with pkgs.obs-studio-plugins; [ 
+    plugins = with pkgs.obs-studio-plugins; [
       input-overlay
       obs-pipewire-audio-capture
       obs-backgroundremoval

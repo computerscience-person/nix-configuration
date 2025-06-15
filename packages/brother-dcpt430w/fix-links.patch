@@ -1,0 +1,12 @@
+@@ -96,6 +96,12 @@ stdenv.mkDerivation (finalAttrs: {
+     ln -s "$out/opt/brother/Printers/dcpt430w/cupswrapper/brother_dcpt430w_printer_en.ppd" \
+       "$out/share/cups/model/"
+ 
++    mkdir -p "$out/share/ppd/Brother" "$out/share/cups/model/Brother"
++    ln -s "$out/opt/brother/Printers/dcpt430w/cupswrapper/brother_dcpt430w_printer_en.ppd" \
++      "$out/share/ppd/Brother/"
++    ln -s "$out/opt/brother/Printers/dcpt430w/cupswrapper/brother_dcpt430w_printer_en.ppd" \
++      "$out/share/cups/model/Brother/"
++
+     runHook postInstall
+   '';

@@ -1,16 +1,18 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ inputs, config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      # inputs.home-manager.nixosModules.home-manager
-      inputs.sops.nixosModules.sops
-    ];
+  inputs,
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    # inputs.home-manager.nixosModules.home-manager
+    inputs.sops.nixosModules.sops
+  ];
 
   # Kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -23,15 +25,14 @@
   boot.plymouth = {
     enable = true;
     themePackages = [
-      (pkgs.callPackage ./packages/plymouth-dracula/package.nix { })
+      (pkgs.callPackage ./packages/plymouth-dracula/package.nix {})
     ];
     theme = "dracula";
   };
 
   fileSystems = {
-    "/mnt/Shtiffiesh".options = [ "compress=zstd" "user" "rw" "exec" ];
+    "/mnt/Shtiffiesh".options = ["compress=zstd" "user" "rw" "exec"];
   };
-
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -62,7 +63,6 @@
     "2606:4700:4700::1111"
     "2606:4700:4700::1001"
   ];
-
 
   # Set your time zone.
   time.timeZone = "Asia/Manila";
@@ -96,7 +96,7 @@
         ];
         modules_load_preference = "ondemand";
       };
-  };
+    };
   };
 
   # Enable the X11 windowing system.
@@ -114,7 +114,7 @@
   };
 
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ 
+  xdg.portal.extraPortals = [
     pkgs.xdg-desktop-portal-xapp
     pkgs.xdg-desktop-portal-gtk
     pkgs.libsForQt5.xdg-desktop-portal-kde
@@ -123,9 +123,12 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [
-    epson-escpr epson-escpr2 (pkgs.callPackage ./packages/epson-202101w/package.nix { })
-    (pkgs.callPackage ./packages/brother-dcpt430w/package.nix { })
-    gutenprint gutenprintBin
+    epson-escpr
+    epson-escpr2
+    (pkgs.callPackage ./packages/epson-202101w/package.nix {})
+    (pkgs.callPackage ./packages/brother-dcpt430w/package.nix {})
+    gutenprint
+    gutenprintBin
   ];
 
   # Enable sound with ipewire.
@@ -175,7 +178,6 @@
     enable = true;
     enable32Bit = true;
     extraPackages = with pkgs; [
-      
     ];
   };
   # Enable touchpad support (enabled default in most desktopManager).
@@ -191,10 +193,10 @@
   users.users.virus-free = {
     isNormalUser = true;
     description = "Oliver Ladores";
-    extraGroups = [ "networkmanager" "wheel" "tss" "adbusers" "lp" ];
+    extraGroups = ["networkmanager" "wheel" "tss" "adbusers" "lp"];
     packages = with pkgs; [
-    # firefox
-    #  thunderbird
+      # firefox
+      #  thunderbird
     ];
   };
 
@@ -203,7 +205,7 @@
 
   # Enable flakes
   nix.package = pkgs.lix;
-  nix.settings.experimental-features = [ "nix-command" "flakes"];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.settings = {
     substituters = [
       "https://cache.lix.systems"
@@ -238,9 +240,16 @@
   fonts.packages = with pkgs; [
     jetbrains-mono
     # (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "DroidSansMono" "UbuntuMono"];})
-    nerd-fonts.fira-code nerd-fonts.jetbrains-mono nerd-fonts.droid-sans-mono nerd-fonts.ubuntu-mono
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.ubuntu-mono
     wine64Packages.fonts
-    liberation_ttf times-newer-roman corefonts vista-fonts stix-two
+    liberation_ttf
+    times-newer-roman
+    corefonts
+    vista-fonts
+    stix-two
   ];
 
   programs.adb.enable = true;
@@ -248,13 +257,13 @@
 
   services.openssh.enable = true;
 
-  services.dbus.packages = [ pkgs.gcr ];
-  
+  services.dbus.packages = [pkgs.gcr];
+
   services.power-profiles-daemon.enable = true;
 
   services.udev.packages = let
-    microbit = pkgs.callPackage ./packages/microbit-udev/package.nix { } ;
-  in [ microbit ];
+    microbit = pkgs.callPackage ./packages/microbit-udev/package.nix {};
+  in [microbit];
 
   virtualisation = {
     podman = {
@@ -300,5 +309,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }

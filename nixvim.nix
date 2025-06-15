@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, lib }: {
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+}: {
   programs.nixvim = {
     enable = true;
     # copied from github:GaetanLepage/dotfiles
@@ -92,7 +97,7 @@
         (key: action: {
           mode = "o";
           inherit action key;
-        }){
+        }) {
           "R" = ''
             function() require("flash").treesitter_search() end
           '';
@@ -108,7 +113,7 @@
         (key: action: {
           mode = "x";
           inherit action key;
-        }){
+        }) {
           "R" = ''
             function() require("flash").treesitter_search() end
           '';
@@ -124,7 +129,7 @@
         (key: action: {
           mode = "c";
           inherit action key;
-        }){
+        }) {
           "<c-s>" = ''
             function() require("flash").toggle() end
           '';
@@ -145,7 +150,7 @@
           highlight.enable = true;
           incremental_selection.enable = true;
           indent.enable = true;
-        }; 
+        };
       };
       treesitter-context.enable = true;
       treesitter-context.settings.line_numbers = true;
@@ -216,7 +221,7 @@
       # Languages
       lsp = {
         enable = true;
-      	keymaps = {
+        keymaps = {
           silent = true;
           diagnostic = {
             # Navigate in diagnostics
@@ -318,7 +323,7 @@
       end
     '';
     extraPlugins = let
-      love2d-nvim = pkgs.callPackage ./packages/love2d-nvim/package.nix { };
+      love2d-nvim = pkgs.callPackage ./packages/love2d-nvim/package.nix {};
     in [
       love2d-nvim
     ];

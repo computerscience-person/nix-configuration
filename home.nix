@@ -57,9 +57,9 @@
     fabric-ai
     tpm2-tools
     comma
+    wl-clipboard-rs
     wineWowPackages.staging
     winetricks
-    python3Packages.markitdown
     # Dev tooling
     devenv
     pijul
@@ -250,6 +250,12 @@
 
   programs.nushell = {
     enable = true;
+    plugins = with pkgs.nushellPlugins; [
+      skim
+      polars
+      highlight
+      gstat
+    ];
     shellAliases = {
       g = "git";
     };
@@ -257,6 +263,7 @@
       source ~/.cache/carapace/init.nu
     '';
     extraEnv = ''
+      $env.EDITOR = 'hx'
       $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
       mkdir ~/.cache/carapace
       carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
@@ -294,6 +301,10 @@
   };
 
   programs.gitui = {
+    enable = true;
+  };
+
+  programs.skim = {
     enable = true;
   };
 

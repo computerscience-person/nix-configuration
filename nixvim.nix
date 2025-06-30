@@ -254,7 +254,11 @@
             package = null;
           };
           # Python
-          pyright = {
+          basedpyright = {
+            enable = true;
+            package = null;
+          };
+          pylyzer = {
             enable = true;
             package = null;
           };
@@ -276,6 +280,7 @@
           # Lua
           lua_ls = {
             enable = true;
+            package = null;
           };
           # OCaml
           ocamllsp.enable = true;

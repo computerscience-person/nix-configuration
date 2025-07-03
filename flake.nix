@@ -16,12 +16,17 @@
     sops.inputs.nixpkgs.follows = "nixpkgs";
     alejandra.url = "github:kamadorueda/alejandra/4.0.0";
     alejandra.inputs.nixpkgs.follows = "nixpkgs";
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
+    lix-module,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -36,6 +41,7 @@
         # > Our main nixos configuration file <
         modules = [
           ./configuration.nix
+          lix-module.nixosModules.default
         ];
       };
     };

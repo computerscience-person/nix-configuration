@@ -47,7 +47,7 @@
           inherit system;
           config.allowUnfree = true;
         };
-        extraSpecialArgs = {inherit inputs;};
+        extraSpecialArgs = {inherit inputs system;};
         # > Our main home-manager configuration file <
         modules = [
           ./home.nix

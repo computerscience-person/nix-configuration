@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   lib,
+  system,
   ...
 }: {
   imports = [
@@ -53,8 +54,10 @@
     ouch
     dust
     zoxide
+    bash-env-json
     ffmpeg-full
     fabric-ai
+    gemini-cli
     tpm2-tools
     comma
     wl-clipboard-rs
@@ -261,6 +264,7 @@
     };
     extraConfig = ''
       source ~/.cache/carapace/init.nu
+      use ~/NixOS/nu/modules/bash-env.nu
     '';
     extraEnv = ''
       $env.EDITOR = 'hx'

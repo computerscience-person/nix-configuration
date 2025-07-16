@@ -29,7 +29,7 @@ stdenvNoCC.mkDerivation {
 
   meta = {
     description = "Dracula theme for Plymouth";
-    homepage = "https://github.com/dracula/grub";
+    homepage = "https://github.com/dracula/plymouth";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [];

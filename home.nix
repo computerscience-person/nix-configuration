@@ -9,6 +9,7 @@
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
     (import ./nixvim.nix {inherit config pkgs inputs lib;})
+    inputs.sops.homeManagerModules.sops
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -73,7 +74,6 @@
     # GUI
     keepassxc
     mupdf
-    sioyek
     emote
     maliit-keyboard
     # LSP's
@@ -234,6 +234,15 @@
     enable = true;
   };
 
+  programs.sioyek = {
+    enable = true;
+    config = let
+      dracula-theme = pkgs.callPackage ./packages/sioyek-dracula-theme/package.nix {};
+    in {
+      "source" = "${dracula-theme.src}/dracula.config";
+    };
+  };
+
   programs.yt-dlp.enable = true;
 
   programs.kitty = {
@@ -272,6 +281,7 @@
       mkdir ~/.cache/carapace
       carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
     '';
+    # $env.GEMINI_API_KEY = (cat ${config.sops.secrets."AI/GOOGLE_TEST_KEY".path})
   };
 
   programs.fish = {
@@ -373,6 +383,9 @@
   services.ssh-agent.enable = true;
   services.gpg-agent.enable = true;
   services.gpg-agent.pinentryPackage = pkgs.pinentry-qt;
+  sops.defaultSopsFile = ./secrets/secrets.yaml;
+  sops.defaultSopsFormat = "yaml";
+  sops.age.keyFile = "/home/virus-free/.config/sops/age/keys.txt";
   # Fonts
   fonts.fontconfig.enable = true;
   # Desktop Appearance

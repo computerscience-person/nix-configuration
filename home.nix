@@ -3,7 +3,6 @@
   pkgs,
   inputs,
   lib,
-  system,
   ...
 }: {
   imports = [
@@ -126,6 +125,8 @@
     EDITOR = "hx";
     SHELL = "nu";
   };
+
+  home.shell.enableNushellIntegration = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -260,6 +261,13 @@
     enableBashIntegration = true;
   };
 
+  programs.pay-respects = {
+    enable = true;
+    enableFishIntegration = true;
+    enableNushellIntegration = true;
+    enableBashIntegration = true;
+  };
+
   programs.nushell = {
     enable = true;
     plugins = with pkgs.nushellPlugins; [
@@ -270,6 +278,10 @@
     ];
     shellAliases = {
       g = "git";
+      ll = "ls -l";
+    };
+    settings = {
+      completions.algorithm = "fuzzy";
     };
     extraConfig = ''
       source ~/.cache/carapace/init.nu
@@ -280,8 +292,8 @@
       $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
       mkdir ~/.cache/carapace
       carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+      $env.GEMINI_API_KEY = (cat ${config.sops.secrets."AI/GOOGLE_TEST_KEY".path})
     '';
-    # $env.GEMINI_API_KEY = (cat ${config.sops.secrets."AI/GOOGLE_TEST_KEY".path})
   };
 
   programs.fish = {
@@ -324,11 +336,13 @@
 
   programs.zoxide = {
     enable = true;
+    enableNushellIntegration = true;
   };
 
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
+    enableNushellIntegration = true;
   };
 
   programs.firefox = {
@@ -383,9 +397,12 @@
   services.ssh-agent.enable = true;
   services.gpg-agent.enable = true;
   services.gpg-agent.pinentryPackage = pkgs.pinentry-qt;
-  sops.defaultSopsFile = ./secrets/secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
-  sops.age.keyFile = "/home/virus-free/.config/sops/age/keys.txt";
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+    age.keyFile = "/home/virus-free/.config/sops/age/keys.txt";
+    secrets."AI/GOOGLE_TEST_KEY" = { };
+  };
   # Fonts
   fonts.fontconfig.enable = true;
   # Desktop Appearance

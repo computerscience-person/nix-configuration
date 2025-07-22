@@ -122,15 +122,15 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.printing.package = pkgs.cups.overrideAttrs (
-    finalAttrs: previousAttrs: {
-      version = "2.4.12";
-      src = pkgs.fetchurl {
-        url = "https://github.com/OpenPrinting/cups/releases/download/v${finalAttrs.version}/cups-${finalAttrs.version}-source.tar.gz";
-        hash = "sha256-sd3hkaSuJ2DEciDILKYVWijDgnAebBoBWdEFSZAjHVk=";
-      };
-    }
-  );
+  # services.printing.package = pkgs.cups.overrideAttrs (
+  #   finalAttrs: previousAttrs: {
+  #     version = "2.4.12";
+  #     src = pkgs.fetchurl {
+  #       url = "https://github.com/OpenPrinting/cups/releases/download/v${finalAttrs.version}/cups-${finalAttrs.version}-source.tar.gz";
+  #       hash = "sha256-sd3hkaSuJ2DEciDILKYVWijDgnAebBoBWdEFSZAjHVk=";
+  #     };
+  #   }
+  # );
   services.printing.drivers = with pkgs; [
     epson-escpr
     epson-escpr2

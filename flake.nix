@@ -55,5 +55,11 @@
       };
     };
     formatter.${system} = inputs.alejandra.defaultPackage.${system};
+    # packages.${system}.sioyek-dracula-theme = let 
+    #   pkgs = import nixpkgs {
+    #       inherit system;
+    #       config.allowUnfree = true;
+    #     };
+    #   in pkgs.callPackage ./packages/sioyek-dracula-theme/package.nix {};
   };
 }

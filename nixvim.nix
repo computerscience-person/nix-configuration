@@ -277,6 +277,7 @@
           tailwindcss.enable = true;
           # C
           clangd.enable = true;
+          clangd.package = null;
           # Lua
           lua_ls = {
             enable = true;

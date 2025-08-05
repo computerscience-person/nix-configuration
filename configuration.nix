@@ -241,6 +241,7 @@
     ntfs3g
     appimage-run
     distrobox
+    podman-compose
     libsForQt5.qtstyleplugin-kvantum
     libsForQt5.qt5.qtwayland
     libsForQt5.qt5.qtvirtualkeyboard
@@ -263,6 +264,10 @@
 
   programs.adb.enable = true;
   programs.nix-ld.enable = true;
+  programs.nh = {
+    enable = true;
+    flake = "/home/virus-free/NixOS";
+  };
 
   services.openssh.enable = true;
 

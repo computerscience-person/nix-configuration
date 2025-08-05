@@ -137,6 +137,14 @@
       default_shell = "nu";
       default_mode = "locked";
       theme = "dracula";
+      keybinds = {
+        normal = {
+          bind = {
+            _args = ["Esc"];
+            SwitchToMode._args = ["locked"];
+          };
+        };
+      };
     };
     # enableFishIntegration = true;
   };
@@ -268,6 +276,12 @@
     enableBashIntegration = true;
   };
 
+  programs.nix-your-shell = {
+    enable = true;
+    enableNushellIntegration = true;
+    enableFishIntegration = true;
+  };
+
   programs.nushell = {
     enable = true;
     plugins = with pkgs.nushellPlugins; [
@@ -285,7 +299,8 @@
     };
     extraConfig = ''
       source ~/.cache/carapace/init.nu
-      use ~/NixOS/nu/modules/bash-env.nu
+      use ~/NixOS/scripts/nu/modules/bash-env.nu
+      $env.config.hooks.command_not_found = source ${./scripts/nu/nu_scripts/command-not-found/command-not-found.nu}
     '';
     extraEnv = ''
       $env.EDITOR = 'hx'

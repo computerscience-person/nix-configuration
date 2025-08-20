@@ -262,6 +262,22 @@
     '';
   };
 
+  programs.foot = {
+    enable = true;
+    server.enable = true;
+    settings = {
+      colors = { # Dracula theme
+        alpha = 0.95;
+      };
+      main = {
+        font = "Fira Code Nerd Font:size=10";
+        include = "/home/virus-free/NixOS/extra_config/foot/oxocarbon.ini";
+        shell = "nu";
+        bold-text-in-bright = "palette-based";
+      };
+    };
+  };
+
   programs.carapace = {
     enable = true;
     enableFishIntegration = true;
@@ -285,10 +301,10 @@
   programs.nushell = {
     enable = true;
     plugins = with pkgs.nushellPlugins; [
-      skim
+      # skim
       polars
-      highlight
-      gstat
+      # highlight
+      # gstat
     ];
     shellAliases = {
       g = "git";
@@ -296,6 +312,7 @@
     };
     settings = {
       completions.algorithm = "fuzzy";
+      edit_mode = "vi";
     };
     extraConfig = ''
       source ~/.cache/carapace/init.nu

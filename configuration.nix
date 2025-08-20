@@ -260,6 +260,8 @@
     corefonts
     vista-fonts
     stix-two
+    fira-math
+    lmmath
   ];
 
   programs.adb.enable = true;
@@ -297,6 +299,8 @@
       };
     };
     waydroid.enable = true;
+    libvirtd.enable = true;
+    libvirtd.qemu.package = pkgs.qemu_kvm;
   };
 
   # Secrets (sops)

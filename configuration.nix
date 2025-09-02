@@ -113,11 +113,10 @@
     xkbVariant = "";
   };
 
-  xdg.portal.enable = true;
   xdg.portal.extraPortals = [
     pkgs.xdg-desktop-portal-xapp
     pkgs.xdg-desktop-portal-gtk
-    pkgs.libsForQt5.xdg-desktop-portal-kde
+    pkgs.kdePackages.xdg-desktop-portal-kde
   ];
 
   # Enable CUPS to print documents.

@@ -26,7 +26,9 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs; [
+  home.packages = let
+    ciscoPacketTracer8-fixed = pkgs.callPackage ./packages/ciscoPacketTracer8/package.nix { };
+  in with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -44,6 +46,7 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
     # Tools
+    nix-output-monitor
     fastfetch
     ripgrep
     eza
@@ -73,8 +76,8 @@
     # GUI
     keepassxc
     mupdf
-    emote
-    maliit-keyboard
+    ciscoPacketTracer8-fixed
+    wireshark
     # LSP's
     nil # Nix language server
     # Vivaldi
@@ -155,6 +158,21 @@
 
   programs.bat = {
     enable = true;
+    extraPackages = with pkgs.bat-extras ;[ batman batgrep ];
+    config = {
+      theme = "oxocarbon";
+    };
+    themes = {
+      oxocarbon = {
+        src = pkgs.fetchFromGitLab {
+          owner = "boydkelly";
+          repo = "carbonizer";
+          rev = "f22aae8c2f9155da0aa5121aa058536549ef4dd5";
+          sha256 = "sha256-52sjILLI3KGRWC3kDIYtuZUXo/sPX5ZtqN/uC+uyh38=";
+        };
+        file = "bat/oxocarbon-dark.tmTheme";
+      };
+    };
   };
 
   programs.helix = {
@@ -256,10 +274,15 @@
 
   programs.kitty = {
     enable = true;
+    enableGitIntegration = true;
     font.name = "Fira Code Nerd Font";
+    themeFile = "Dracula";
     extraConfig = ''
       shell nu
     '';
+    actionAliases = {
+      "launch_tab" = "launch --cwd=current --type=tab";
+    };
   };
 
   programs.foot = {

@@ -113,6 +113,7 @@
     xkbVariant = "";
   };
 
+  xdg.portal.enable = true;
   xdg.portal.extraPortals = [
     pkgs.xdg-desktop-portal-xapp
     pkgs.xdg-desktop-portal-gtk

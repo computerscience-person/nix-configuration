@@ -7,6 +7,7 @@
 {
   programs.nvf = {
     enable = true;
+    enableManpages = true;
     settings = {
       vim = {
         theme.name = "oxocarbon";
@@ -39,20 +40,42 @@
             (mkKeymap "" "<C-b>h" ":bp<CR>" { desc = "Go to the previous buffer"; })
             (mkKeymap "" "<C-b>l" ":bn<CR>" { desc = "Go to the next buffer"; })
           ];
-        lsp = {
-          enable = true;
-          formatOnSave = true;
-          inlayHints.enable = true;
-          lightbulb.enable = true;
-          servers = {
-            # clangd.cmd = ["clangd"];
-            # basedpyright = ["basedpyright-langserver" "--stdio"];
-            # lsp.package = ["nil"];
-            # lsp.package = ["rust-analyzer"];
-            # lsp.package = ["lua-language-server"];
-
+        lsp =
+          let
+            inherit (lib) mkForce;
+            inherit (lib.generators) mkLuaInline;
+          in
+          {
+            enable = true;
+            formatOnSave = true;
+            inlayHints.enable = true;
+            lightbulb.enable = true;
+            servers = {
+              clangd.cmd = mkForce [ "clangd" ];
+              basedpyright.cmd = mkForce [
+                "basedpyright-langserver"
+                "--stdio"
+              ];
+              nil.cmd = mkForce [ "nil" ];
+              lua-language-server.cmd = mkForce [ "lua-language-server" ];
+              powershell_es = {
+                filetypes = [ "ps1" ];
+                cmd = [ "powershell-editor-services" ];
+              };
+              gdscript = {
+                filetypse = [
+                  "gd"
+                  "gdscript"
+                  "gdscript3"
+                ];
+                root_markers = [
+                  "project.godot"
+                  "git"
+                ];
+                cmd = mkLuaInline ''vim.lsp.rpc.connect('127.0.0.1', tonumber(os.getenv 'GDScript_Port' or '6005'))'';
+              };
+            };
           };
-        };
         languages = {
           enableTreesitter = true;
           clang = {
@@ -66,6 +89,7 @@
           };
           rust = {
             enable = true;
+            lsp.package = [ "rust-analyzer" ];
           };
           lua = {
             enable = true;
@@ -77,6 +101,9 @@
           context.enable = true;
           fold = true;
           textobjects.enable = true;
+          grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+            powershell
+          ];
         };
         autocomplete = {
           blink-cmp = {

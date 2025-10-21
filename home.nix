@@ -26,9 +26,7 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = let
-    ciscoPacketTracer8-fixed = pkgs.callPackage ./packages/ciscoPacketTracer8/package.nix { };
-  in with pkgs; [
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -76,7 +74,6 @@
     # GUI
     keepassxc
     mupdf
-    ciscoPacketTracer8-fixed
     wireshark
     # LSP's
     nil # Nix language server
@@ -90,7 +87,6 @@
     ))
     # Document writing
     typst
-    asciidoctor-with-extensions
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

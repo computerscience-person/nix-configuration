@@ -7,11 +7,8 @@
     # Home
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # Nixvim
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nvf.url = "github:NotAShelf/nvf/v0.8";
+    nvf.inputs.nixpkgs.follows = "nixpkgs";
     sops.url = "github:Mic92/sops-nix";
     sops.inputs.nixpkgs.follows = "nixpkgs";
     alejandra.url = "github:kamadorueda/alejandra/4.0.0";
@@ -47,10 +44,6 @@
       "virus-free" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           inherit system;
-          config.allowUnfree = true;
-          config.permittedInsecurePackages = [
-              "libxml2-2.13.8"
-          ];
         };
         extraSpecialArgs = {inherit inputs system;};
         # > Our main home-manager configuration file <

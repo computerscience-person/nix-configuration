@@ -6,9 +6,9 @@
   ...
 }: {
   imports = [
-    inputs.nixvim.homeManagerModules.nixvim
-    (import ./nixvim.nix {inherit config pkgs inputs lib;})
     inputs.sops.homeManagerModules.sops
+    inputs.nvf.homeManagerModules.default
+    (import ./nvf.nix {inherit config pkgs inputs lib;})
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -464,4 +464,5 @@
     enable = true;
   };
   xdg.enable = true;
+  nixpkgs.config.allowUnfree = true;
 }

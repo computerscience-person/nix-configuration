@@ -6,7 +6,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -25,13 +26,18 @@
   boot.plymouth = {
     enable = true;
     themePackages = [
-      (pkgs.callPackage ./packages/plymouth-dracula/package.nix {})
+      (pkgs.callPackage ./packages/plymouth-dracula/package.nix { })
     ];
     theme = "dracula";
   };
 
   fileSystems = {
-    "/mnt/Shtiffiesh".options = ["compress=zstd" "user" "rw" "exec"];
+    "/mnt/Shtiffiesh".options = [
+      "compress=zstd"
+      "user"
+      "rw"
+      "exec"
+    ];
   };
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -122,20 +128,10 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  # services.printing.package = pkgs.cups.overrideAttrs (
-  #   finalAttrs: previousAttrs: {
-  #     version = "2.4.12";
-  #     src = pkgs.fetchurl {
-  #       url = "https://github.com/OpenPrinting/cups/releases/download/v${finalAttrs.version}/cups-${finalAttrs.version}-source.tar.gz";
-  #       hash = "sha256-sd3hkaSuJ2DEciDILKYVWijDgnAebBoBWdEFSZAjHVk=";
-  #     };
-  #   }
-  # );
   services.printing.drivers = with pkgs; [
     epson-escpr
     epson-escpr2
-    (pkgs.callPackage ./packages/epson-202101w/package.nix {})
-    (pkgs.callPackage ./packages/brother-dcpt430w/package.nix {})
+    (pkgs.callPackage ./packages/epson-202101w/package.nix { })
     gutenprint
     gutenprintBin
   ];
@@ -202,7 +198,13 @@
   users.users.virus-free = {
     isNormalUser = true;
     description = "Oliver Ladores";
-    extraGroups = ["networkmanager" "wheel" "tss" "adbusers" "lp"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "tss"
+      "adbusers"
+      "lp"
+    ];
     packages = with pkgs; [
       # firefox
       #  thunderbird
@@ -214,7 +216,10 @@
 
   # Enable flakes
   nix.package = pkgs.lix;
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nix.settings = {
     substituters = [
       "https://nix-community.cachix.org"
@@ -246,20 +251,6 @@
   ];
 
   fonts.packages = with pkgs; [
-    jetbrains-mono
-    # (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "DroidSansMono" "UbuntuMono"];})
-    nerd-fonts.fira-code
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.droid-sans-mono
-    nerd-fonts.ubuntu-mono
-    wine64Packages.fonts
-    liberation_ttf
-    times-newer-roman
-    corefonts
-    vista-fonts
-    stix-two
-    fira-math
-    lmmath
   ];
 
   programs.adb.enable = true;
@@ -271,13 +262,15 @@
 
   services.openssh.enable = true;
 
-  services.dbus.packages = [pkgs.gcr];
+  services.dbus.packages = [ pkgs.gcr ];
 
   services.power-profiles-daemon.enable = true;
 
-  services.udev.packages = let
-    microbit = pkgs.callPackage ./packages/microbit-udev/package.nix {};
-  in [microbit];
+  services.udev.packages =
+    let
+      microbit = pkgs.callPackage ./packages/microbit-udev/package.nix { };
+    in
+    [ microbit ];
 
   virtualisation = {
     podman = {
@@ -311,12 +304,7 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPortRanges = [
-    {
-      from = 9000;
-      to = 9999;
-    }
-  ];
+  networking.nftables.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

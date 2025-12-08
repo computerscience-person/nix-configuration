@@ -4,11 +4,19 @@
   inputs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     inputs.sops.homeManagerModules.sops
     inputs.nvf.homeManagerModules.default
-    (import ./nvf.nix {inherit config pkgs inputs lib;})
+    (import ./nvf.nix {
+      inherit
+        config
+        pkgs
+        inputs
+        lib
+        ;
+    })
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -27,15 +35,23 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    jetbrains-mono
+    # (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "DroidSansMono" "UbuntuMono"];})
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.ubuntu-mono
+    nerd-fonts.liberation
+    wine64Packages.fonts
+    liberation_ttf
+    times-newer-roman
+    corefonts
+    vista-fonts
+    stix-two
+    fira-math
+    lmmath
+    atkinson-hyperlegible-next
+    atkinson-hyperlegible-mono
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -82,7 +98,7 @@
       finalAttrs: previousAttrs: {
         dontWrapQtApps = false;
         dontPatchElf = true;
-        nativeBuildInputs = previousAttrs.nativeBuildInputs ++ [pkgs.kdePackages.wrapQtAppsHook];
+        nativeBuildInputs = previousAttrs.nativeBuildInputs ++ [ pkgs.kdePackages.wrapQtAppsHook ];
       }
     ))
     # Document writing
@@ -137,10 +153,28 @@
       default_mode = "locked";
       theme = "dracula";
       keybinds = {
+        locked._children = [
+          {
+            bind = {
+              _args = [
+                "Alt h"
+              ];
+              MoveFocusOrTab = [ "left" ];
+            };
+          }
+          {
+            bind = {
+              _args = [
+                "Alt l"
+              ];
+              MoveFocusOrTab = [ "right" ];
+            };
+          }
+        ];
         normal = {
           bind = {
-            _args = ["Esc"];
-            SwitchToMode._args = ["locked"];
+            _args = [ "Esc" ];
+            SwitchToMode._args = [ "locked" ];
           };
         };
       };
@@ -154,7 +188,10 @@
 
   programs.bat = {
     enable = true;
-    extraPackages = with pkgs.bat-extras ;[ batman batgrep ];
+    extraPackages = with pkgs.bat-extras; [
+      batman
+      batgrep
+    ];
     config = {
       theme = "oxocarbon";
     };
@@ -197,11 +234,11 @@
       language-server = {
         harper-ls = {
           command = "harper-ls";
-          args = ["--stdio"];
+          args = [ "--stdio" ];
         };
         emmet = {
           command = "emmet-language-server";
-          args = ["--stdio"];
+          args = [ "--stdio" ];
         };
       };
       language = [
@@ -259,11 +296,13 @@
 
   programs.sioyek = {
     enable = true;
-    config = let
-      dracula-theme = pkgs.callPackage ./packages/sioyek-dracula-theme/package.nix {};
-    in {
-      "source" = "${dracula-theme.src}/dracula.config";
-    };
+    config =
+      let
+        dracula-theme = pkgs.callPackage ./packages/sioyek-dracula-theme/package.nix { };
+      in
+      {
+        "source" = "${dracula-theme.src}/dracula.config";
+      };
   };
 
   programs.yt-dlp.enable = true;
@@ -272,7 +311,7 @@
     enable = true;
     enableGitIntegration = true;
     font.name = "Fira Code Nerd Font";
-    themeFile = "Dracula";
+    themeFile = "Carbonfox";
     extraConfig = ''
       shell nu
     '';
@@ -285,7 +324,8 @@
     enable = true;
     server.enable = true;
     settings = {
-      colors = { # Dracula theme
+      colors = {
+        # Dracula theme
         alpha = 0.95;
       };
       main = {

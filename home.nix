@@ -74,7 +74,7 @@
     bash-env-json
     ffmpeg-full
     fabric-ai
-    gemini-cli
+    goose-cli
     tpm2-tools
     comma
     wl-clipboard-rs

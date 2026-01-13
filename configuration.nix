@@ -135,8 +135,20 @@
     gutenprint
     gutenprintBin
   ];
+  services.saned.enable = true;
+  services.saned.extraConfig = ''
+    192.168.1.0/24
+    192.168.0.0/24
+  '';
+  hardware.sane = {
+    enable = true;
+    extraBackends = with pkgs; [
+      sane-airscan
+    ];
+    openFirewall = true;
+  };
 
-  # Enable sound with ipewire.
+  # Enable sound with pipewire.
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -250,9 +262,6 @@
     libsForQt5.qt5.qtvirtualkeyboard
   ];
 
-  fonts.packages = with pkgs; [
-  ];
-
   programs.adb.enable = true;
   programs.nix-ld.enable = true;
   programs.nh = {
@@ -270,7 +279,11 @@
     let
       microbit = pkgs.callPackage ./packages/microbit-udev/package.nix { };
     in
-    [ microbit ];
+    [ microbit ]
+    ++ (with pkgs; [
+      platformio-core.udev
+      openocd
+    ]);
 
   virtualisation = {
     podman = {

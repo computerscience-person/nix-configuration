@@ -62,6 +62,9 @@
                 filetypes = [ "ps1" ];
                 cmd = [ "powershell-editor-services" ];
               };
+              ocaml-lsp = {
+                cmd = mkForce [ "ocamllsp" ];
+              };
               gdscript = {
                 filetypse = [
                   "gd"
@@ -147,6 +150,9 @@
             enable = true;
           };
           ts = {
+            enable = true;
+          };
+          ocaml = {
             enable = true;
           };
           # julia = {

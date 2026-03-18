@@ -262,7 +262,6 @@
     libsForQt5.qt5.qtvirtualkeyboard
   ];
 
-  programs.adb.enable = true;
   programs.nix-ld.enable = true;
   programs.nh = {
     enable = true;

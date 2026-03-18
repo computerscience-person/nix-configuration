@@ -7,7 +7,7 @@
     # Home
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nvf.url = "github:NotAShelf/nvf/v0.8";
+    nvf.url = "github:NotAShelf/nvf";
     nvf.inputs.nixpkgs.follows = "nixpkgs";
     sops.url = "github:Mic92/sops-nix";
     sops.inputs.nixpkgs.follows = "nixpkgs";
@@ -17,47 +17,50 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    system = "x86_64-linux";
-  in {
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
-    nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {inherit inputs outputs;};
-        # > Our main nixos configuration file <
-        modules = [
-          ./configuration.nix
-        ];
-      };
-    };
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .  #your-username@your-hostname'
-    homeConfigurations = {
-      "virus-free" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
+    let
+      inherit (self) outputs;
+      system = "x86_64-linux";
+    in
+    {
+      # NixOS configuration entrypoint
+      # Available through 'nixos-rebuild --flake .#your-hostname'
+      nixosConfigurations = {
+        nixos = nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = { inherit inputs outputs; };
+          # > Our main nixos configuration file <
+          modules = [
+            ./configuration.nix
+          ];
         };
-        extraSpecialArgs = {inherit inputs system;};
-        # > Our main home-manager configuration file <
-        modules = [
-          ./home.nix
-        ];
       };
+      # Standalone home-manager configuration entrypoint
+      # Available through 'home-manager --flake .  #your-username@your-hostname'
+      homeConfigurations = {
+        "virus-free" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            inherit system;
+          };
+          extraSpecialArgs = { inherit inputs system; };
+          # > Our main home-manager configuration file <
+          modules = [
+            ./home.nix
+          ];
+        };
+      };
+      formatter.${system} = inputs.alejandra.defaultPackage.${system};
+      # packages.${system}.sioyek-dracula-theme = let
+      #   pkgs = import nixpkgs {
+      #       inherit system;
+      #       config.allowUnfree = true;
+      #     };
+      #   in pkgs.callPackage ./packages/sioyek-dracula-theme/package.nix {};
     };
-    formatter.${system} = inputs.alejandra.defaultPackage.${system};
-    # packages.${system}.sioyek-dracula-theme = let 
-    #   pkgs = import nixpkgs {
-    #       inherit system;
-    #       config.allowUnfree = true;
-    #     };
-    #   in pkgs.callPackage ./packages/sioyek-dracula-theme/package.nix {};
-  };
 }

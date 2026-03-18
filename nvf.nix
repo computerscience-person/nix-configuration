@@ -75,7 +75,7 @@
                   "project.godot"
                   "git"
                 ];
-                cmd = mkLuaInline ''vim.lsp.rpc.connect('127.0.0.1', tonumber(os.getenv 'GDScript_Port' or '6005'))'';
+                cmd = mkLuaInline "vim.lsp.rpc.connect('127.0.0.1', tonumber(os.getenv 'GDScript_Port' or '6005'))";
               };
               ts_ls = {
                 cmd = mkForce [
@@ -214,6 +214,8 @@
         lazy.plugins = {
           "jupytext.nvim" = {
             package = pkgs.vimPlugins.jupytext-nvim;
+            setupModule = "jupytext";
+            setupOpts = { };
           };
         };
         # luaConfigRC = ''

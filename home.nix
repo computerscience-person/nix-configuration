@@ -80,6 +80,7 @@
     wl-clipboard-rs
     wineWowPackages.staging
     winetricks
+    android-tools
     # Dev tooling
     devenv
     pijul
@@ -351,12 +352,6 @@
     enableBashIntegration = true;
   };
 
-  programs.nix-your-shell = {
-    enable = true;
-    enableNushellIntegration = true;
-    enableFishIntegration = true;
-  };
-
   programs.nushell = {
     enable = true;
     plugins = with pkgs.nushellPlugins; [
@@ -371,18 +366,60 @@
     };
     settings = {
       completions.algorithm = "fuzzy";
+      completions.external.enable = true;
       edit_mode = "vi";
     };
     extraConfig = ''
-      source ~/.cache/carapace/init.nu
       use ~/NixOS/scripts/nu/modules/bash-env.nu
       $env.config.hooks.command_not_found = source ${./scripts/nu/nu_scripts/command-not-found/command-not-found.nu}
+
+      let fish_completer = {|spans|
+        fish --command $"complete '--do-complete=($spans | str replace --all "'" "\\'" | str join ' ')'"
+        | from tsv --flexible --noheaders --no-infer
+        | rename value description
+        | update value {|row|
+          let value = $row.value
+          let need_quote = ['\' ',' '[' ']' '(' ')' ' ' '\t' "'" '"' "`"] | any {$in in $value}
+          if ($need_quote and ($value | path exists)) {
+            let expanded_path = if ($value starts-with ~) {$value | path expand --no-symlink} else {$value}
+            $'"($expanded_path | str replace --all "\"" "\\\"")"'
+          } else {$value}
+        }
+      }
+
+      # This completer will use carapace by default
+      let external_completer = {|spans|
+        let expanded_alias = scope aliases
+        | where name == $spans.0
+        | get -o 0.expansion
+
+        let spans = if $expanded_alias != null {
+            $spans
+            | skip 1
+            | prepend ($expanded_alias | split row ' ' | take 1)
+        } else {
+            $spans
+        }
+
+        match $spans.0 {
+          # carapace completions are incorrect for nu
+          nu => $fish_completer
+          # fish completes commits and branch names in a nicer way
+          git => $fish_completer
+          # carapace doesn't have completions for asdf
+          asdf => $fish_completer
+          uv => $fish_completer
+          _ => $fish_completer
+        } | do $in $spans
+      }
+
+      $env.config.completions.external.completer = $external_completer;
     '';
     extraEnv = ''
       $env.EDITOR = 'hx'
-      $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
-      mkdir ~/.cache/carapace
-      carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+
+      $env.CARAPACE_BRIDGES = 'fish,bash' # optional
+
       $env.GEMINI_API_KEY = (cat ${config.sops.secrets."AI/GOOGLE_TEST_KEY".path})
     '';
   };
@@ -403,18 +440,25 @@
 
   programs.git = {
     enable = true;
-    userName = "Oliver Ladores";
-    userEmail = "oliver.ladores@wvsu.edu.ph";
-    signing.key = "0x320B1B0E0E392BE6";
-    aliases = {
-      st = "status";
-      logl = "log --oneline --graph --show-signature";
-      br = "branch";
-      sw = "switch";
+    settings = {
+      user = {
+        name = "Oliver Ladores";
+        email = "oliver.ladores@wvsu.edu.ph";
+      };
+      alias = {
+        st = "status";
+        logl = "log --oneline --graph --show-signature";
+        br = "branch";
+        sw = "switch";
+      };
     };
-    delta.enable = true;
+    signing.key = "0x320B1B0E0E392BE6";
     lfs.enable = true;
     # extraConfig.core.sparseCheckout
+  };
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
   };
 
   programs.gitui = {
@@ -456,8 +500,8 @@
 
   programs.direnv = {
     enable = true;
-    enableBashIntegration = true;
-    enableNushellIntegration = true;
+    # enableBashIntegration = true;
+    # enableNushellIntegration = true;
     nix-direnv.enable = true;
   };
 
@@ -487,7 +531,7 @@
 
   services.ssh-agent.enable = true;
   services.gpg-agent.enable = true;
-  services.gpg-agent.pinentryPackage = pkgs.pinentry-qt;
+  services.gpg-agent.pinentry.package = pkgs.pinentry-qt;
   sops = {
     defaultSopsFile = ./secrets/secrets.yaml;
     defaultSopsFormat = "yaml";

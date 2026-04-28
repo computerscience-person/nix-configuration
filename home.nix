@@ -78,7 +78,7 @@
     tpm2-tools
     comma
     wl-clipboard-rs
-    wineWowPackages.staging
+    wine-wayland
     winetricks
     android-tools
     # Dev tooling

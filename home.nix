@@ -232,6 +232,10 @@
           command = "emmet-language-server";
           args = [ "--stdio" ];
         };
+        tinymist.config = {
+          exportPdf = "onSave";
+          preview.background.enable = "true";
+        };
       };
       language = [
         {

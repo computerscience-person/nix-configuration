@@ -22,7 +22,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.theme = "${pkgs.minimal-grub-theme}";
   boot.plymouth = {
     enable = true;
     themePackages = [
@@ -52,6 +51,9 @@
   networking.networkmanager.dns = "none";
   networking.useDHCP = false;
   networking.dhcpcd.enable = false;
+
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
 
   # Configure DNS servers manually (this example uses Cloudflare and Google DNS)
   # IPv6 DNS servers can be used here as well.
@@ -109,8 +111,7 @@
   services.xserver.enable = true;
 
   # Enable the XFCE Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.plasma-login-manager.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11A
@@ -129,8 +130,6 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [
-    epson-escpr
-    epson-escpr2
     (pkgs.callPackage ./packages/epson-202101w/package.nix { })
     gutenprint
     gutenprintBin
@@ -158,25 +157,24 @@
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
     # TODO: Enable when extraLuaConfig option is available.
-    # wireplumber.extraConfig.bluetooth."51-bluez-config" = {
-    #   bluez_monitor.properties = {
-    #     "bluez5.enable-sbc-xq" = true;
-    #     "bluez5.enable-msbc" = true;
-    #     "bluez5.enable-hw-volume" = true;
-    #     "bluez5.headset-roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
-    #   };
-    # };
-    #
-    wireplumber.configPackages = [
-      (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
-        bluez_monitor.properties = {
-          ["bluez5.enable-sbc-xq"] = true,
-          ["bluez5.enable-msbc"] = true,
-          ["bluez5.enable-hw-volume"] = true,
-          ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-        }
-      '')
-    ];
+    wireplumber.extraConfig.bluetooth."51-bluez-config" = {
+     bluez_monitor.properties = {
+       "bluez5.enable-sbc-xq" = true;
+       "bluez5.enable-msbc" = true;
+       "bluez5.enable-hw-volume" = true;
+       "bluez5.headset-roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+     };
+    };
+    # wireplumber.configPackages = [
+    #   (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
+    #     bluez_monitor.properties = {
+    #       ["bluez5.enable-sbc-xq"] = true,
+    #       ["bluez5.enable-msbc"] = true,
+    #       ["bluez5.enable-hw-volume"] = true,
+    #       ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+    #     }
+    #   '')
+    # ];
     #
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -216,6 +214,7 @@
       "tss"
       "adbusers"
       "lp"
+      "scanner"
     ];
     packages = with pkgs; [
       # firefox
@@ -257,9 +256,6 @@
     appimage-run
     distrobox
     podman-compose
-    libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.qt5.qtwayland
-    libsForQt5.qt5.qtvirtualkeyboard
   ];
 
   programs.nix-ld.enable = true;
@@ -282,6 +278,7 @@
     ++ (with pkgs; [
       platformio-core.udev
       openocd
+      sane-airscan
     ]);
 
   virtualisation = {

@@ -56,7 +56,6 @@
     ripgrep
     eza
     broot
-    neovide
     alacritty
     xh
     ouch
@@ -64,14 +63,14 @@
     zoxide
     bash-env-json
     ffmpeg-full
-    fabric-ai
-    goose-cli
     tpm2-tools
     comma
     wl-clipboard-rs
     wine-wayland
     winetricks
     android-tools
+    # AI Agents
+    goose-cli
     # Dev tooling
     devenv
     pijul
@@ -95,6 +94,7 @@
     ))
     # Document writing
     typst
+    typstyle
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -235,6 +235,7 @@
         tinymist.config = {
           exportPdf = "onSave";
           preview.background.enable = "true";
+          formatterMode = "typstyle";
         };
       };
       language = [

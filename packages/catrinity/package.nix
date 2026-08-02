@@ -2,7 +2,6 @@
   lib,
   fetchurl,
 }:
-
 fetchurl {
   pname = "Catrinity";
   version = "2.23";
@@ -18,7 +17,7 @@ fetchurl {
 
     install -m 644 -D $downloadedFile $out/share/fonts/opentype/Catrinity.otf
 
-    runHook postInstall    
+    runHook postInstall
   '';
 
   meta = {

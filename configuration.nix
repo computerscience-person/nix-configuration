@@ -6,8 +6,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -25,7 +24,7 @@
   boot.plymouth = {
     enable = true;
     themePackages = [
-      (pkgs.callPackage ./packages/plymouth-dracula/package.nix { })
+      (pkgs.callPackage ./packages/plymouth-dracula/package.nix {})
     ];
     theme = "dracula";
   };
@@ -130,7 +129,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [
-    (pkgs.callPackage ./packages/epson-202101w/package.nix { })
+    (pkgs.callPackage ./packages/epson-202101w/package.nix {})
     gutenprint
     gutenprintBin
   ];
@@ -158,12 +157,12 @@
     #jack.enable = true;
     # TODO: Enable when extraLuaConfig option is available.
     wireplumber.extraConfig.bluetooth."51-bluez-config" = {
-     bluez_monitor.properties = {
-       "bluez5.enable-sbc-xq" = true;
-       "bluez5.enable-msbc" = true;
-       "bluez5.enable-hw-volume" = true;
-       "bluez5.headset-roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
-     };
+      bluez_monitor.properties = {
+        "bluez5.enable-sbc-xq" = true;
+        "bluez5.enable-msbc" = true;
+        "bluez5.enable-hw-volume" = true;
+        "bluez5.headset-roles" = ["hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag"];
+      };
     };
     # wireplumber.configPackages = [
     #   (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
@@ -266,15 +265,14 @@
 
   services.openssh.enable = true;
 
-  services.dbus.packages = [ pkgs.gcr ];
+  services.dbus.packages = [pkgs.gcr];
 
   services.power-profiles-daemon.enable = true;
 
-  services.udev.packages =
-    let
-      microbit = pkgs.callPackage ./packages/microbit-udev/package.nix { };
-    in
-    [ microbit ]
+  services.udev.packages = let
+    microbit = pkgs.callPackage ./packages/microbit-udev/package.nix {};
+  in
+    [microbit]
     ++ (with pkgs; [
       platformio-core.udev
       openocd

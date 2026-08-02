@@ -4,8 +4,7 @@
   inputs,
   lib,
   ...
-}:
-{
+}: {
   imports = [
     inputs.sops.homeManagerModules.sops
   ];
@@ -44,7 +43,7 @@
     atkinson-hyperlegible-next
     atkinson-hyperlegible-mono
     quivira
-    (pkgs.callPackage ./packages/catrinity/package.nix { })
+    (pkgs.callPackage ./packages/catrinity/package.nix {})
     aporetic
     junicode
     gentium
@@ -101,7 +100,7 @@
       finalAttrs: previousAttrs: {
         dontWrapQtApps = false;
         dontPatchElf = true;
-        nativeBuildInputs = previousAttrs.nativeBuildInputs ++ [ pkgs.kdePackages.wrapQtAppsHook ];
+        nativeBuildInputs = previousAttrs.nativeBuildInputs ++ [pkgs.kdePackages.wrapQtAppsHook];
       }
     ))
     # Document writing
@@ -163,7 +162,7 @@
               _args = [
                 "Alt h"
               ];
-              MoveFocusOrTab = [ "left" ];
+              MoveFocusOrTab = ["left"];
             };
           }
           {
@@ -171,14 +170,14 @@
               _args = [
                 "Alt l"
               ];
-              MoveFocusOrTab = [ "right" ];
+              MoveFocusOrTab = ["right"];
             };
           }
         ];
         normal = {
           bind = {
-            _args = [ "Esc" ];
-            SwitchToMode._args = [ "locked" ];
+            _args = ["Esc"];
+            SwitchToMode._args = ["locked"];
           };
         };
       };
@@ -233,11 +232,11 @@
       language-server = {
         harper-ls = {
           command = "harper-ls";
-          args = [ "--stdio" ];
+          args = ["--stdio"];
         };
         emmet = {
           command = "emmet-language-server";
-          args = [ "--stdio" ];
+          args = ["--stdio"];
         };
         tinymist.config = {
           exportPdf = "onSave";
@@ -300,13 +299,11 @@
 
   programs.sioyek = {
     enable = true;
-    config =
-      let
-        dracula-theme = pkgs.callPackage ./packages/sioyek-dracula-theme/package.nix { };
-      in
-      {
-        "source" = "${dracula-theme.src}/dracula.config";
-      };
+    config = let
+      dracula-theme = pkgs.callPackage ./packages/sioyek-dracula-theme/package.nix {};
+    in {
+      "source" = "${dracula-theme.src}/dracula.config";
+    };
   };
 
   programs.yt-dlp.enable = true;
@@ -539,7 +536,7 @@
     defaultSopsFile = ./secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
     age.keyFile = "/home/virus-free/.config/sops/age/keys.txt";
-    secrets."AI/GOOGLE_TEST_KEY" = { };
+    secrets."AI/GOOGLE_TEST_KEY" = {};
   };
   # Fonts
   fonts.fontconfig.enable = true;

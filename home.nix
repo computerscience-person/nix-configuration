@@ -26,8 +26,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    jetbrains-mono
     # (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "DroidSansMono" "UbuntuMono"];})
+    jetbrains-mono
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
     nerd-fonts.droid-sans-mono
@@ -43,6 +43,15 @@
     lmmath
     atkinson-hyperlegible-next
     atkinson-hyperlegible-mono
+    quivira
+    (pkgs.callPackage ./packages/catrinity/package.nix { })
+    aporetic
+    junicode
+    gentium
+    gentium-book
+    andika
+    alegreya
+    ibm-plex
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -56,11 +65,9 @@
     ripgrep
     eza
     broot
-    alacritty
     xh
     ouch
     dust
-    zoxide
     bash-env-json
     ffmpeg-full
     tpm2-tools
@@ -84,6 +91,11 @@
     wireshark
     # LSP's
     nil # Nix language server
+    tinymist # Typst
+    markdown-oxide # Markdown
+    harper # Spellcheck
+    vscode-langservers-extracted # HTML/CSS/JS
+    emmet-language-server # HTML
     # Vivaldi
     (vivaldi.overrideAttrs (
       finalAttrs: previousAttrs: {
@@ -204,11 +216,6 @@
     enable = true;
     package = pkgs.evil-helix;
     extraPackages = with pkgs; [
-      tinymist
-      markdown-oxide
-      harper
-      vscode-langservers-extracted
-      emmet-language-server
     ];
     settings.theme = "darcula-solid";
     settings.editor = {

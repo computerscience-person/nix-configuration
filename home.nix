@@ -77,6 +77,7 @@
     android-tools
     # AI Agents
     goose-cli
+    zeroclaw
     # Dev tooling
     devenv
     pijul
@@ -356,7 +357,7 @@
     enable = true;
     plugins = with pkgs.nushellPlugins; [
       # skim
-      polars
+      # polars
       # highlight
       # gstat
     ];

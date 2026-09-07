@@ -81,6 +81,7 @@
     # Dev tooling
     devenv
     pijul
+    srgn
     # Secrets
     minisign
     sops
@@ -217,9 +218,9 @@
     package = pkgs.evil-helix;
     extraPackages = with pkgs; [
     ];
-    settings.theme = "darcula-solid";
+    settings.theme = "carbonfox";
     settings.editor = {
-      text-width = 120;
+      text-width = 90;
       cursor-shape = {
         insert = "bar";
         normal = "block";
@@ -269,6 +270,7 @@
             "harper-ls"
             "emmet"
           ];
+          text-width = 120;
         }
       ];
     };
@@ -349,8 +351,95 @@
   programs.pay-respects = {
     enable = true;
     enableFishIntegration = true;
-    enableNushellIntegration = true;
+    enableNushellIntegration = false;
     enableBashIntegration = true;
+  };
+
+  programs.pi-coding-agent = {
+    enable = true;
+    extraPackages = [
+      pkgs."${((lib.elemAt config.programs.pi-coding-agent.package.buildInputs 0).pname + "-slim")}".npm
+      pkgs."${((lib.elemAt config.programs.pi-coding-agent.package.buildInputs 0).pname + "-slim")}"
+    ];
+    settings = {
+      defaultModel = "gpt-5.6-luna";
+      defaultProvider = "novita";
+      defaultThinkingLevel = "high";
+      packages = [
+        "npm:pi-novita-ai"
+        "npm:pi-web-access"
+        "npm:pi-subagents"
+        "npm:pi-lens"
+        "git:github.com/obra/superpowers@v6.3.0"
+        "npm:@mammothb/pi-office@0.1.7"
+      ];
+    };
+    models = {
+      providers = {
+      aihubmix = {
+        api = "openai-responses";
+        baseUrl = "https://aihubmix.com/v1/responses";
+        models = [
+          {
+            id = "gpt-5.6-sol-disc";
+            reasoning = true;
+            input = ["text" "image"];
+            contextWindow = 1050000;
+            maxTokens = 128000;
+            cost = {
+              input = 2;
+              output = 10;
+              cacheRead = 0.2;
+              cacheWrite = 2.5;
+              tiers = [
+                {
+                  inputTokensAbove = 272000;
+                  input = 4;
+                  output = 15;
+                  cacheRead = 0.4;
+                  cacheWrite = 5;
+                }
+              ];
+            };
+          }
+          {
+            id = "gpt-5.6-luna";
+            reasoning = true;
+            input = ["text" "image"];
+            contextWindow = 1050000;
+            maxTokens = 128000;
+            cost = {
+              input = 0.2;
+              output = 1.2;
+              cacheRead = 0.02;
+              cacheWrite = 0.25;
+              tiers = [
+                {
+                  inputTokensAbove = 272000;
+                  input = 0.4;
+                  output = 1.8;
+                  cacheRead = 0.04;
+                  cacheWrite = 0.5;
+                }
+              ];
+            };
+          }
+          {
+            id = "glm-5.3";
+            reasoning = true;
+            input = ["text"];
+            contextWindow = 1048576;
+            maxTokens = 131072;
+            cost = {
+              input = 1.127;
+              output = 3.944;
+              cacheRead = 0.254;
+              cacheWrite = 3.944;
+            };
+          }
+        ];
+      };};
+    };
   };
 
   programs.nushell = {
@@ -415,6 +504,11 @@
       }
 
       $env.config.completions.external.completer = $external_completer;
+      source ${
+        pkgs.runCommand "pay-respects-nushell-config.nu" { } ''
+          ${lib.getExe config.programs.pay-respects.package} nu >> "$out"
+        ''
+      }
     '';
     extraEnv = ''
       $env.EDITOR = 'hx'

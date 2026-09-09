@@ -328,9 +328,11 @@
     enable = true;
     server.enable = true;
     settings = {
-      colors = {
-        # Dracula theme
+      colors-dark = {
         alpha = 0.95;
+      };
+      colors-light = {
+        alpha = config.programs.foot.settings.colors-dark.alpha;
       };
       main = {
         font = "Fira Code Nerd Font:size=10";
@@ -371,7 +373,7 @@
         "npm:pi-subagents"
         "npm:pi-lens"
         "git:github.com/obra/superpowers@v6.3.0"
-        "npm:@mammothb/pi-office@0.1.7"
+        "npm:@mammothb/pi-office@^0.2"
       ];
     };
     models = {
